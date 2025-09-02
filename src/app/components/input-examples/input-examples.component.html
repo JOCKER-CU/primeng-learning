@@ -1,0 +1,254 @@
+<div class="input-examples">
+    <div class="page-header">
+        <h2><i class="pi pi-pencil"></i> PrimeNG Input Examples</h2>
+        <p>Explore different types of input components and form controls in PrimeNG</p>
+    </div>
+
+    <div class="examples-grid">
+        <!-- Basic Inputs -->
+        <div class="example-section">
+            <h3>Basic Inputs</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="basic-text">Text Input</label>
+                    <input pInputText id="basic-text" placeholder="Enter text here" />
+                </div>
+
+                <div class="input-field">
+                    <label for="basic-number">Number Input</label>
+                    <input pInputText type="number" id="basic-number" placeholder="Enter number" />
+                </div>
+
+                <div class="input-field">
+                    <label for="basic-email">Email Input</label>
+                    <input pInputText type="email" id="basic-email" placeholder="Enter email" />
+                </div>
+
+                <div class="input-field">
+                    <label for="basic-password">Password Input</label>
+                    <p-password id="basic-password" placeholder="Enter password" [toggleMask]="true"></p-password>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input with Icons -->
+        <div class="example-section">
+            <h3>Input with Icons</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="search-input">Search</label>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-search"></i>
+                        <input pInputText id="search-input" placeholder="Search..." />
+                    </span>
+                </div>
+
+                <div class="input-field">
+                    <label for="user-input">Username</label>
+                    <span class="p-input-icon-left">
+                        <i class="pi pi-user"></i>
+                        <input pInputText id="user-input" placeholder="Enter username" />
+                    </span>
+                </div>
+
+                <div class="input-field">
+                    <label for="email-input">Email</label>
+                    <span class="p-input-icon-right">                        
+                        <i class="pi pi-envelope"></i>
+                        <input pInputText type="email" id="email-input" placeholder="Enter email" />
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Textarea -->
+        <div class="example-section">
+            <h3>Textarea</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="textarea">Description</label>
+                    <!-- <textarea pInputTextarea id="textarea" rows="2" placeholder="Enter description..."
+                        [autoResize]="true"></textarea> -->
+                        <textarea pInputTextarea id="textarea" rows="2" placeholder="Enter description..." [autoResize]="false"
+                            style="width:100%; min-height:60px; max-height:200px; overflow-y:auto; resize:none;">
+                        </textarea>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown -->
+        <div class="example-section">
+            <h3>Dropdown</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="country">Country</label>
+                    <p-dropdown id="country" [options]="countries" [(ngModel)]="selectedCountry"
+                        placeholder="Select a country" optionLabel="name">
+                    </p-dropdown>
+                </div>
+
+                <div class="input-field">
+                    <label for="city">City</label>
+                    <p-dropdown id="city" [options]="cities" [(ngModel)]="selectedCity" placeholder="Select a city"
+                        [disabled]="!selectedCountry">
+                    </p-dropdown>
+                </div>
+            </div>
+        </div>
+
+        <!-- MultiSelect -->
+        <div class="example-section">
+            <h3>MultiSelect</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="skills">Skills</label>
+                    <p-multiSelect id="skills" [options]="skills" [(ngModel)]="selectedSkills"
+                        placeholder="Select skills" optionLabel="name" [showToggleAll]="true">
+                    </p-multiSelect>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="example-section">
+            <h3>Calendar</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="date">Date</label>
+                    <p-calendar id="date" [(ngModel)]="selectedDate" placeholder="Select date" [showIcon]="true">
+                    </p-calendar>
+                </div>
+
+                <div class="input-field">
+                    <label for="datetime">Date & Time</label>
+                    <p-calendar id="datetime" [(ngModel)]="selectedDateTime" placeholder="Select date and time"
+                        [showTime]="true" [showIcon]="true">
+                    </p-calendar>
+                </div>
+            </div>
+        </div>
+
+        <!-- Checkbox & Radio -->
+        <div class="example-section">
+            <h3>Checkbox & Radio</h3>
+            <div class="input-group">
+                <div class="checkbox-group">
+                    <label>Preferences:</label>
+                    <div class="checkbox-item">
+                        <p-checkbox [(ngModel)]="preferences.email" [binary]="true" inputId="email-pref"></p-checkbox>
+                        <label for="email-pref">Email notifications</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <p-checkbox [(ngModel)]="preferences.sms" [binary]="true" inputId="sms-pref"></p-checkbox>
+                        <label for="sms-pref">SMS notifications</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <p-checkbox [(ngModel)]="preferences.push" [binary]="true" inputId="push-pref"></p-checkbox>
+                        <label for="push-pref">Push notifications</label>
+                    </div>
+                </div>
+
+                <div class="radio-group">
+                    <label>Gender:</label>
+                    <div class="radio-item">
+                        <p-radioButton name="gender" value="male" [(ngModel)]="gender" inputId="male"></p-radioButton>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="radio-item">
+                        <p-radioButton name="gender" value="female" [(ngModel)]="gender"
+                            inputId="female"></p-radioButton>
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="radio-item">
+                        <p-radioButton name="gender" value="other" [(ngModel)]="gender" inputId="other"></p-radioButton>
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slider -->
+        <div class="example-section">
+            <h3>Slider</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label>Age: {{ age }}</label>
+                    <p-slider [(ngModel)]="age" [min]="0" [max]="100"></p-slider>
+                </div>
+
+                <div class="input-field">
+                    <label>Rating: {{ rating }}</label>
+                    <p-slider [(ngModel)]="rating" [min]="1" [max]="5" [step]="0.5"></p-slider>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="example-section">
+            <h3>Rating</h3>
+            <div class="input-group">
+                <div class="input-field">
+                    <label>Product Rating</label>
+                    <p-rating [(ngModel)]="productRating" [stars]="5"></p-rating>
+                    <p class="rating-text">Selected: {{ productRating }} stars</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Example -->
+    <div class="form-section">
+        <h3>Complete Form Example</h3>
+        <form class="example-form" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="firstName">First Name *</label>
+                    <input pInputText id="firstName" [(ngModel)]="formData.firstName" name="firstName" required />
+                </div>
+                <div class="form-field">
+                    <label for="lastName">Last Name *</label>
+                    <input pInputText id="lastName" [(ngModel)]="formData.lastName" name="lastName" required />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="formEmail">Email *</label>
+                    <input pInputText type="email" id="formEmail" [(ngModel)]="formData.email" name="email" required />
+                </div>
+                <div class="form-field">
+                    <label for="formPhone">Phone</label>
+                    <input pInputText id="formPhone" [(ngModel)]="formData.phone" name="phone" />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="formCountry">Country</label>
+                    <p-dropdown id="formCountry" [options]="countries" [(ngModel)]="formData.country" name="country"
+                        placeholder="Select country" optionLabel="name">
+                    </p-dropdown>
+                </div>
+                <div class="form-field">
+                    <label for="formDate">Birth Date</label>
+                    <p-calendar id="formDate" [(ngModel)]="formData.birthDate" name="birthDate"
+                        placeholder="Select birth date" [showIcon]="true">
+                    </p-calendar>
+                </div>
+            </div>
+
+            <div class="form-field">
+                <label for="formBio">Bio</label>
+                <textarea pInputTextarea id="formBio" [(ngModel)]="formData.bio" name="bio" rows="3"
+                    placeholder="Tell us about yourself..."></textarea>
+            </div>
+
+            <div class="form-actions">
+                <p-button type="submit" label="Submit" icon="pi pi-check"></p-button>
+                <p-button type="button" label="Reset" severity="secondary" icon="pi pi-refresh"
+                    (onClick)="resetForm()"></p-button>
+            </div>
+        </form>
+    </div>
+</div>

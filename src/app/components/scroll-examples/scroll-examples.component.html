@@ -1,0 +1,201 @@
+<div class="scroll-examples-container">
+    <h2>ChatGPT-Style Scroll Examples</h2>
+
+    <div class="grid">
+        <!-- Chat Interface -->
+        <div class="col-12 lg:col-8">
+            <p-card header="Chat Interface with Auto-Scroll" styleClass="mb-4">
+                <div class="chat-container" #chatContainer (scroll)="onScroll()">
+                    <div class="messages">
+                        <div *ngFor="let message of messages" [id]="'message-' + message.id" class="message"
+                            [ngClass]="message.type">
+                            <div class="message-content">
+                                <div class="message-text">{{ message.text }}</div>
+                                <div class="message-timestamp">
+                                    {{ message.timestamp | date:'HH:mm:ss' }}
+                                </div>
+                            </div>
+                            <div class="message-avatar">
+                                <i [class]="message.type === 'user' ? 'pi pi-user' : 'pi pi-robot'"></i>
+                            </div>
+                        </div>
+
+                        <!-- Typing indicator -->
+                        <div *ngIf="isGenerating" class="message assistant typing">
+                            <div class="message-content">
+                                <div class="typing-indicator">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                            </div>
+                            <div class="message-avatar">
+                                <i class="pi pi-robot"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-group">
+                        <input pInputText type="text" [(ngModel)]="messageText" (keypress)="onKeyPress($event)"
+                            placeholder="Type your message here..." class="chat-input">
+                        <p-button icon="pi pi-send" (onClick)="addMessage()"
+                            [disabled]="!messageText.trim() || isGenerating" class="send-button">
+                        </p-button>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+
+        <!-- Scroll Controls -->
+        <div class="col-12 lg:col-4">
+            <p-card header="Scroll Controls" styleClass="mb-4">
+                <div class="scroll-controls">
+                    <div class="control-group">
+                        <h4>Navigation</h4>
+                        <div class="button-group">
+                            <p-button label="Scroll to Top" icon="pi pi-arrow-up" size="small" (onClick)="scrollToTop()"
+                                class="control-button">
+                            </p-button>
+                            <p-button label="Scroll to Bottom" icon="pi pi-arrow-down" size="small"
+                                (onClick)="scrollToBottom()" class="control-button">
+                            </p-button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h4>Quick Actions</h4>
+                        <div class="button-group">
+                            <p-button label="Add Multiple Messages" icon="pi pi-plus" size="small"
+                                (onClick)="addMultipleMessages()" [disabled]="isGenerating" class="control-button">
+                            </p-button>
+                            <p-button label="Clear Messages" icon="pi pi-trash" size="small" severity="danger"
+                                (onClick)="clearMessages()" class="control-button">
+                            </p-button>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <h4>Scroll to Message</h4>
+                        <div class="button-group">
+                            <p-button *ngFor="let message of messages.slice(-5)" [label]="'#' + message.id"
+                                icon="pi pi-arrow-right" size="small" (onClick)="scrollToMessage(message.id)"
+                                class="control-button message-button">
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+            </p-card>
+
+            <!-- Configuration -->
+            <p-card header="Configuration" styleClass="mb-4">
+                <div class="config-controls">
+                    <div class="config-item">
+                        <label class="config-label">
+                            <p-checkbox [(ngModel)]="autoScrollEnabled" (onChange)="toggleAutoScroll()" [binary]="true">
+                            </p-checkbox>
+                            Auto-scroll enabled
+                        </label>
+                    </div>
+
+                    <div class="config-item">
+                        <label class="config-label">Scroll Behavior:</label>
+                        <p-dropdown [options]="behaviorOptions" [(ngModel)]="scrollOptions.behavior" optionLabel="label"
+                            optionValue="value" placeholder="Select behavior" class="w-full">
+                        </p-dropdown>
+                    </div>
+
+                    <div class="config-item">
+                        <label class="config-label">Scroll Delay (ms):</label>
+                        <p-slider [(ngModel)]="scrollOptions.delay" [min]="0" [max]="500" [step]="50" class="w-full">
+                        </p-slider>
+                        <span class="config-value">{{ scrollOptions.delay }}ms</span>
+                    </div>
+
+                    <div class="config-item">
+                        <label class="config-label">Scroll Threshold:</label>
+                        <p-slider [(ngModel)]="scrollThreshold" [min]="50" [max]="200" [step]="25"
+                            (onChange)="updateScrollThreshold()" class="w-full">
+                        </p-slider>
+                        <span class="config-value">{{ scrollThreshold }}px</span>
+                    </div>
+                </div>
+            </p-card>
+
+            <!-- Status -->
+            <p-card header="Status" styleClass="mb-4">
+                <div class="status-info">
+                    <div class="status-item">
+                        <span class="status-label">Current Position:</span>
+                        <span class="status-value">{{ currentScrollPosition.top }}px</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Near Bottom:</span>
+                        <span class="status-value" [ngClass]="isNearBottom ? 'status-true' : 'status-false'">
+                            {{ isNearBottom ? 'Yes' : 'No' }}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Auto-scroll:</span>
+                        <span class="status-value" [ngClass]="autoScrollEnabled ? 'status-true' : 'status-false'">
+                            {{ autoScrollEnabled ? 'Enabled' : 'Disabled' }}
+                        </span>
+                    </div>
+                    <div class="status-item">
+                        <span class="status-label">Messages:</span>
+                        <span class="status-value">{{ messages.length }}</span>
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    </div>
+
+    <!-- Content Container for Testing -->
+    <div class="col-12">
+        <p-card header="Content Container for Testing" styleClass="mb-4">
+            <div class="content-container" #contentContainer>
+                <div class="content-section" *ngFor="let i of [1,2,3,4,5,6,7,8,9,10]">
+                    <h3>Section {{ i }}</h3>
+                    <p>This is content section {{ i }} for testing scroll functionality.
+                        You can use the scroll controls above to navigate to different positions.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                </div>
+            </div>
+
+            <div class="content-controls">
+                <p-button label="Scroll to Position" icon="pi pi-crosshairs" (onClick)="scrollToPosition()"
+                    class="control-button">
+                </p-button>
+            </div>
+        </p-card>
+    </div>
+
+    <!-- Instructions -->
+    <p-card header="How It Works" styleClass="mb-4">
+        <div class="instructions">
+            <h4>ChatGPT-Style Auto-Scroll Features:</h4>
+            <ul class="feature-list">
+                <li><strong>Smart Auto-scroll:</strong> Automatically scrolls to bottom when new messages arrive, but
+                    only if you're near the bottom</li>
+                <li><strong>User Intent Respect:</strong> If you scroll up to read previous messages, it won't force
+                    scroll down</li>
+                <li><strong>Smooth Animations:</strong> Configurable smooth scrolling with customizable delays</li>
+                <li><strong>Position Tracking:</strong> Monitors scroll position and provides real-time status</li>
+                <li><strong>Manual Controls:</strong> Buttons to scroll to top, bottom, or specific messages</li>
+                <li><strong>Configurable Behavior:</strong> Adjust scroll threshold, delay, and behavior</li>
+            </ul>
+
+            <h4 class="mt-3">Try These Scenarios:</h4>
+            <ol class="scenario-list">
+                <li>Add messages while at the bottom - should auto-scroll</li>
+                <li>Scroll up to read previous messages, then add new ones - should NOT auto-scroll</li>
+                <li>Use the scroll controls to navigate to different positions</li>
+                <li>Adjust the configuration settings to see different behaviors</li>
+                <li>Add multiple messages quickly to see the auto-scroll in action</li>
+            </ol>
+        </div>
+    </p-card>
+</div>

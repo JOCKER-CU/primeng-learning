@@ -1,0 +1,259 @@
+<div class="dialog-examples">
+    <div class="page-header">
+        <h2><i class="pi pi-window-maximize"></i> PrimeNG Dialog Examples</h2>
+        <p>Explore different types of dialogs and modal components in PrimeNG</p>
+    </div>
+
+    <div class="examples-grid">
+        <!-- Basic Dialog -->
+        <div class="example-section">
+            <h3>Basic Dialog</h3>
+            <div class="button-group">
+                <p-button label="Show Basic Dialog" icon="pi pi-external-link" (onClick)="showBasicDialog()"></p-button>
+            </div>
+
+            <p-dialog header="Basic Dialog" [(visible)]="basicDialogVisible" [style]="{ width: '50vw' }" [modal]="true">
+                <p>This is a basic dialog example. You can put any content here.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.</p>
+
+                <ng-template pTemplate="footer">
+                    <p-button label="Cancel" icon="pi pi-times" (onClick)="closeBasicDialog()"
+                        severity="secondary"></p-button>
+                    <p-button label="Save" icon="pi pi-check" (onClick)="saveBasicDialog()"></p-button>
+                </ng-template>
+            </p-dialog>
+        </div>
+
+        <!-- Confirmation Dialog -->
+        <div class="example-section">
+            <h3>Confirmation Dialog</h3>
+            <div class="button-group">
+                <p-button label="Delete Item" icon="pi pi-trash" severity="danger"
+                    (onClick)="showConfirmDialog()"></p-button>
+                <p-button label="Confirm Action" icon="pi pi-check" severity="success"
+                    (onClick)="showConfirmAction()"></p-button>
+            </div>
+
+            <p-confirmDialog></p-confirmDialog>
+        </div>
+
+        <!-- Form Dialog -->
+        <div class="example-section">
+            <h3>Form Dialog</h3>
+            <div class="button-group">
+                <p-button label="Add User" icon="pi pi-user-plus" (onClick)="showFormDialog()"></p-button>
+            </div>
+
+            <p-dialog header="Add New User" [(visible)]="formDialogVisible" [style]="{ width: '60vw' }" [modal]="true">
+                <form class="user-form" (ngSubmit)="saveUser()">
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="firstName">First Name *</label>
+                            <input pInputText id="firstName" [(ngModel)]="newUser.firstName" name="firstName"
+                                required />
+                        </div>
+                        <div class="form-field">
+                            <label for="lastName">Last Name *</label>
+                            <input pInputText id="lastName" [(ngModel)]="newUser.lastName" name="lastName" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="email">Email *</label>
+                            <input pInputText type="email" id="email" [(ngModel)]="newUser.email" name="email"
+                                required />
+                        </div>
+                        <div class="form-field">
+                            <label for="phone">Phone</label>
+                            <input pInputText id="phone" [(ngModel)]="newUser.phone" name="phone" />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label for="role">Role</label>
+                            <p-dropdown id="role" [options]="roles" [(ngModel)]="newUser.role" name="role"
+                                placeholder="Select role"></p-dropdown>
+                        </div>
+                        <div class="form-field">
+                            <label for="department">Department</label>
+                            <p-dropdown id="department" [options]="departments" [(ngModel)]="newUser.department"
+                                name="department" placeholder="Select department"></p-dropdown>
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="notes">Notes</label>
+                        <textarea pInputTextarea id="notes" [(ngModel)]="newUser.notes" name="notes" rows="3"
+                            placeholder="Additional notes..."></textarea>
+                    </div>
+                </form>
+
+                <ng-template pTemplate="footer">
+                    <p-button label="Cancel" icon="pi pi-times" (onClick)="closeFormDialog()"
+                        severity="secondary"></p-button>
+                    <p-button label="Save User" icon="pi pi-check" (onClick)="saveUser()"
+                        [disabled]="!isFormValid()"></p-button>
+                </ng-template>
+            </p-dialog>
+        </div>
+
+        <!-- Dynamic Dialog -->
+        <div class="example-section">
+            <h3>Dynamic Dialog</h3>
+            <div class="button-group">
+                <p-button label="Show Dynamic Dialog" icon="pi pi-plus" (onClick)="showDynamicDialog()"></p-button>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="example-section">
+            <h3>Sidebar</h3>
+            <div class="button-group">
+                <p-button label="Show Sidebar" icon="pi pi-bars" (onClick)="showSidebar()"></p-button>
+            </div>
+
+            <p-sidebar [(visible)]="sidebarVisible" position="right" [style]="{ width: '30vw' }">
+                <h3>Sidebar Content</h3>
+                <p>This is a sidebar example. You can put navigation, forms, or any content here.</p>
+
+                <div class="sidebar-content">
+                    <h4>Quick Actions</h4>
+                    <div class="action-list">
+                        <p-button label="Dashboard" icon="pi pi-home" [text]="true" styleClass="w-full mb-2"></p-button>
+                        <p-button label="Profile" icon="pi pi-user" [text]="true" styleClass="w-full mb-2"></p-button>
+                        <p-button label="Settings" icon="pi pi-cog" [text]="true" styleClass="w-full mb-2"></p-button>
+                        <p-button label="Help" icon="pi pi-question-circle" [text]="true"
+                            styleClass="w-full mb-2"></p-button>
+                    </div>
+
+                    <h4>Recent Activity</h4>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <i class="pi pi-file"></i>
+                            <span>Document updated</span>
+                            <small>2 minutes ago</small>
+                        </div>
+                        <div class="activity-item">
+                            <i class="pi pi-user"></i>
+                            <span>New user registered</span>
+                            <small>5 minutes ago</small>
+                        </div>
+                        <div class="activity-item">
+                            <i class="pi pi-bell"></i>
+                            <span>Notification sent</span>
+                            <small>10 minutes ago</small>
+                        </div>
+                    </div>
+                </div>
+            </p-sidebar>
+        </div>
+
+        <!-- Overlay Panel -->
+        <div class="example-section">
+            <h3>Overlay Panel</h3>
+            <div class="button-group">
+                <p-button label="Show Overlay" icon="pi pi-info-circle"
+                    (onClick)="overlayPanel.toggle($event)"></p-button>
+            </div>
+
+            <p-overlayPanel #overlayPanel>
+                <div class="overlay-content">
+                    <h4>Information Panel</h4>
+                    <p>This is an overlay panel that appears when you click the button.</p>
+                    <p>It can contain any content and is positioned relative to the trigger element.</p>
+
+                    <div class="overlay-actions">
+                        <p-button label="Learn More" icon="pi pi-external-link" size="small"></p-button>
+                        <p-button label="Close" icon="pi pi-times" severity="secondary" size="small"
+                            (onClick)="overlayPanel.hide()"></p-button>
+                    </div>
+                </div>
+            </p-overlayPanel>
+        </div>
+
+        <!-- Tooltip -->
+        <div class="example-section">
+            <h3>Tooltip</h3>
+            <div class="button-group">
+                <p-button label="Hover for Tooltip" icon="pi pi-question-circle"
+                    pTooltip="This is a helpful tooltip message" tooltipPosition="top"></p-button>
+                <p-button label="Right Tooltip" icon="pi pi-info-circle" pTooltip="Tooltip on the right side"
+                    tooltipPosition="right"></p-button>
+                <p-button label="Bottom Tooltip" icon="pi pi-exclamation-triangle" pTooltip="Tooltip on the bottom"
+                    tooltipPosition="bottom"></p-button>
+                <p-button label="Left Tooltip" icon="pi pi-star" pTooltip="Tooltip on the left side"
+                    tooltipPosition="left"></p-button>
+            </div>
+        </div>
+
+        <!-- Toast Messages -->
+        <div class="example-section">
+            <h3>Toast Messages</h3>
+            <div class="button-group">
+                <p-button label="Success Toast" icon="pi pi-check" severity="success"
+                    (onClick)="showSuccessToast()"></p-button>
+                <p-button label="Info Toast" icon="pi pi-info-circle" severity="info"
+                    (onClick)="showInfoToast()"></p-button>
+                <p-button label="Warning Toast" icon="pi pi-exclamation-triangle" severity="warning"
+                    (onClick)="showWarningToast()"></p-button>
+                <p-button label="Error Toast" icon="pi pi-times" severity="danger"
+                    (onClick)="showErrorToast()"></p-button>
+            </div>
+
+            <p-toast></p-toast>
+        </div>
+    </div>
+
+    <!-- Interactive Examples -->
+    <div class="interactive-section">
+        <h3>Interactive Examples</h3>
+        <div class="interactive-content">
+            <div class="demo-section">
+                <h4>Dialog with Dynamic Content</h4>
+                <p>Click the button below to see a dialog with dynamic content that changes based on user interaction.
+                </p>
+                <div class="button-group">
+                    <p-button label="Dynamic Content" icon="pi pi-magic"
+                        (onClick)="showDynamicContentDialog()"></p-button>
+                </div>
+
+                <p-dialog header="Dynamic Content Dialog" [(visible)]="dynamicContentDialogVisible"
+                    [style]="{ width: '50vw' }" [modal]="true">
+                    <div class="dynamic-content">
+                        <p>Current step: {{ currentStep }} of 3</p>
+
+                        <div *ngIf="currentStep === 1">
+                            <h4>Step 1: Basic Information</h4>
+                            <p>This is the first step of the dynamic dialog.</p>
+                            <p-button label="Next" icon="pi pi-arrow-right" (onClick)="nextStep()"></p-button>
+                        </div>
+
+                        <div *ngIf="currentStep === 2">
+                            <h4>Step 2: Additional Details</h4>
+                            <p>This is the second step with more information.</p>
+                            <div class="step-actions">
+                                <p-button label="Previous" icon="pi pi-arrow-left" severity="secondary"
+                                    (onClick)="previousStep()"></p-button>
+                                <p-button label="Next" icon="pi pi-arrow-right" (onClick)="nextStep()"></p-button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="currentStep === 3">
+                            <h4>Step 3: Confirmation</h4>
+                            <p>This is the final step. Are you sure you want to proceed?</p>
+                            <div class="step-actions">
+                                <p-button label="Previous" icon="pi pi-arrow-left" severity="secondary"
+                                    (onClick)="previousStep()"></p-button>
+                                <p-button label="Complete" icon="pi pi-check" severity="success"
+                                    (onClick)="completeSteps()"></p-button>
+                            </div>
+                        </div>
+                    </div>
+                </p-dialog>
+            </div>
+        </div>
+    </div>
+</div>

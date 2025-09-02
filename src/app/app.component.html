@@ -1,0 +1,53 @@
+<div class="app-container">
+  <header class="app-header">
+    <div class="header-content">
+      <h1 class="app-title">
+        <i class="pi pi-star-fill"></i>
+        PrimeNG Learning
+      </h1>
+      <nav class="nav-menu">
+        <a routerLink="/buttons" [class.active]="isRouteActive('/buttons')" class="nav-link">
+          <i class="pi pi-circle-fill"></i>
+          Buttons
+        </a>
+        <a routerLink="/inputs" [class.active]="isRouteActive('/inputs')" class="nav-link">
+          <i class="pi pi-pencil"></i>
+          Inputs
+        </a>
+        <a routerLink="/data-table" [class.active]="isRouteActive('/data-table')" class="nav-link">
+          <i class="pi pi-table"></i>
+          Data Table
+        </a>
+        <a routerLink="/dialogs" [class.active]="isRouteActive('/dialogs')" class="nav-link">
+          <i class="pi pi-window-maximize"></i>
+          Dialogs
+        </a>
+        <a routerLink="/chat-input" [class.active]="isRouteActive('/chat-input')" class="nav-link">
+          <i class="pi pi-comments"></i>
+          Chat Input
+        </a>
+        <a routerLink="/toast" [class.active]="isRouteActive('/toast')" class="nav-link">
+          <i class="pi pi-bell"></i>
+          Toast
+        </a>
+        <a routerLink="/scroll" [class.active]="isRouteActive('/scroll')" class="nav-link">
+          <i class="pi pi-arrow-down"></i>
+          Scroll
+        </a>
+        <a routerLink="/form" [class.active]="isRouteActive('/form')" class="nav-link">
+          <i class="pi pi-form"></i>
+          Form
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <main class="app-main">
+    <router-outlet />
+  </main>
+
+  <footer class="app-footer">
+    <p>&copy; 2024 PrimeNG Learning Project - Built with Angular 17 & PrimeNG</p>
+  </footer>
+</div>

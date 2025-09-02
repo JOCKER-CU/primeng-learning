@@ -1,0 +1,297 @@
+<div class="data-table-examples">
+    <div class="page-header">
+        <h2><i class="pi pi-table"></i> PrimeNG Data Table Examples</h2>
+        <p>Explore different types of data tables and their features in PrimeNG</p>
+    </div>
+
+    <div class="examples-grid">
+        <!-- Basic Table -->
+        <div class="example-section">
+            <h3>Basic Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Sortable Table -->
+        <div class="example-section">
+            <h3>Sortable Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" sortMode="single">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Filterable Table -->
+        <div class="example-section">
+            <h3>Filterable Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }"
+                [globalFilterFields]="['name', 'category', 'status']">
+                <ng-template pTemplate="caption">
+                    <div class="flex align-items-center justify-content-between">
+                        <h5 class="m-0">Products</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="Search..." />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Pagination Table -->
+        <div class="example-section">
+            <h3>Pagination Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5"
+                [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                [rowsPerPageOptions]="[5, 10, 25]">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Selection Table -->
+        <div class="example-section">
+            <h3>Selection Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [(selection)]="selectedProducts"
+                dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 4rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="product"></p-tableCheckbox>
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <div class="selection-info" *ngIf="selectedProducts.length > 0">
+                <p>Selected: {{ selectedProducts.length }} product(s)</p>
+                <p-button label="Clear Selection" icon="pi pi-times" severity="secondary"
+                    (onClick)="clearSelection()"></p-button>
+            </div>
+        </div>
+
+        <!-- Expandable Table -->
+        <div class="example-section">
+            <h3>Expandable Table</h3>
+            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" dataKey="id">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 4rem"></th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product let-expanded="expanded">
+                    <tr>
+                        <td>
+                            <p-button type="button" pButton pRipple
+                                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+                                (click)="toggleRow(product)" [text]="true" [rounded]="true"></p-button>
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="rowexpansion" let-product>
+                    <tr>
+                        <td colspan="5">
+                            <div class="expansion-content">
+                                <h4>Product Details</h4>
+                                <div class="details-grid">
+                                    <div class="detail-item">
+                                        <strong>ID:</strong> {{ product.id }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Description:</strong> {{ product.description }}
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Stock:</strong> {{ product.stock }} units
+                                    </div>
+                                    <div class="detail-item">
+                                        <strong>Created:</strong> {{ product.created | date }}
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <!-- Virtual Scrolling Table -->
+        <div class="example-section">
+            <h3>Virtual Scrolling Table</h3>
+            <p-table [value]="virtualProducts" [tableStyle]="{ 'min-width': '50rem' }" [scrollable]="true"
+                scrollHeight="400px" [virtualScroll]="true" [virtualScrollItemSize]="46">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 100px">ID</th>
+                        <th style="width: 200px">Name</th>
+                        <th style="width: 200px">Category</th>
+                        <th style="width: 150px">Price</th>
+                        <th style="width: 150px">Status</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>{{ product.price | currency }}</td>
+                        <td>
+                            <p-tag [value]="product.status" [severity]="getStatusSeverity(product.status)"></p-tag>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- Interactive Table Controls -->
+    <div class="controls-section">
+        <h3>Table Controls</h3>
+        <div class="controls-grid">
+            <div class="control-group">
+                <h4>Add New Product</h4>
+                <div class="form-row">
+                    <div class="form-field">
+                        <label for="newName">Name</label>
+                        <input pInputText id="newName" [(ngModel)]="newProduct.name" placeholder="Product name" />
+                    </div>
+                    <div class="form-field">
+                        <label for="newCategory">Category</label>
+                        <p-dropdown id="newCategory" [options]="categories" [(ngModel)]="newProduct.category"
+                            placeholder="Select category"></p-dropdown>
+                    </div>
+                    <div class="form-field">
+                        <label for="newPrice">Price</label>
+                        <input pInputNumber id="newPrice" [(ngModel)]="newProduct.price" placeholder="0.00" />
+                    </div>
+                    <div class="form-field">
+                        <label for="newStatus">Status</label>
+                        <p-dropdown id="newStatus" [options]="statuses" [(ngModel)]="newProduct.status"
+                            placeholder="Select status"></p-dropdown>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <p-button label="Add Product" icon="pi pi-plus" (onClick)="addProduct()"></p-button>
+                    <p-button label="Clear" severity="secondary" icon="pi pi-times"
+                        (onClick)="clearNewProduct()"></p-button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h4>Table Statistics</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Products:</span>
+                        <span class="stat-value">{{ products.length }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Average Price:</span>
+                        <span class="stat-value">{{ getAveragePrice() | currency }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">In Stock:</span>
+                        <span class="stat-value">{{ getInStockCount() }}</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Out of Stock:</span>
+                        <span class="stat-value">{{ getOutOfStockCount() }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

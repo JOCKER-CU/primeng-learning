@@ -1,0 +1,163 @@
+<div class="toast-examples-container">
+    <h2>PrimeNG Toast Examples</h2>
+
+    <!-- Toast Container -->
+    <p-toast></p-toast>
+
+    <!-- Position-specific toast containers -->
+    <p-toast key="tl" position="top-left"></p-toast>
+    <p-toast key="tc" position="top-center"></p-toast>
+    <p-toast key="tr" position="top-right"></p-toast>
+    <p-toast key="bl" position="bottom-left"></p-toast>
+    <p-toast key="bc" position="bottom-center"></p-toast>
+    <p-toast key="br" position="bottom-right"></p-toast>
+    <p-toast key="custom"></p-toast>
+    <p-toast key="actions"></p-toast>
+
+    <!-- Basic Toast Examples -->
+    <p-card header="Basic Toast Types" styleClass="mb-4">
+        <div class="flex flex-wrap gap-3">
+            <p-button label="Success Toast" icon="pi pi-check" severity="danger" (onClick)="showSuccess()">
+            </p-button>
+
+            <p-button label="Info Toast" icon="pi pi-info-circle" severity="info" (onClick)="showInfo()">
+            </p-button>
+
+            <p-button label="Warning Toast" icon="pi pi-exclamation-triangle" severity="warn" (onClick)="showWarn()">
+            </p-button>
+
+            <p-button label="Error Toast" icon="pi pi-times" severity="danger" (onClick)="showError()">
+            </p-button>
+        </div>
+    </p-card>
+
+    <!-- Toast Positioning -->
+    <p-card header="Toast Positioning" styleClass="mb-4">
+        <div class="grid">
+            <div class="col-12 md:col-6">
+                <h4>Top Positions</h4>
+                <div class="flex flex-column gap-2">
+                    <p-button label="Top Left" icon="pi pi-arrow-up-left" size="small" (onClick)="showTopLeft()">
+                    </p-button>
+                    <p-button label="Top Center" icon="pi pi-arrow-up" size="small" (onClick)="showTopCenter()">
+                    </p-button>
+                    <p-button label="Top Right" icon="pi pi-arrow-up-right" size="small" (onClick)="showTopRight()">
+                    </p-button>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-6">
+                <h4>Bottom Positions</h4>
+                <div class="flex flex-column gap-2">
+                    <p-button label="Bottom Left" icon="pi pi-arrow-down-left" size="small"
+                        (onClick)="showBottomLeft()">
+                    </p-button>
+                    <p-button label="Bottom Center" icon="pi pi-arrow-down" size="small" (onClick)="showBottomCenter()">
+                    </p-button>
+                    <p-button label="Bottom Right" icon="pi pi-arrow-down-right" size="small"
+                        (onClick)="showBottomRight()">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Custom Toast Configuration -->
+    <p-card header="Custom Toast Configuration" styleClass="mb-4">
+        <div class="grid">
+            <div class="col-12 md:col-4">
+                <label for="customMessage" class="block mb-2">Message:</label>
+                <input id="customMessage" pInputText type="text" [(ngModel)]="customMessage" class="w-full">
+            </div>
+
+            <div class="col-12 md:col-4">
+                <label for="customDuration" class="block mb-2">Duration (ms):</label>
+                <p-inputNumber id="customDuration" [(ngModel)]="customDuration" [min]="1000" [max]="10000" [step]="500"
+                    class="w-full">
+                </p-inputNumber>
+            </div>
+
+            <div class="col-12 md:col-4">
+                <label for="customSeverity" class="block mb-2">Severity:</label>
+                <p-dropdown id="customSeverity" [options]="severityOptions" [(ngModel)]="customSeverity"
+                    optionLabel="label" optionValue="value" placeholder="Select Severity" class="w-full">
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <p-button label="Show Custom Toast" icon="pi pi-magic" (onClick)="showCustomToast()">
+            </p-button>
+        </div>
+    </p-card>
+
+    <!-- Advanced Toast Features -->
+    <p-card header="Advanced Toast Features" styleClass="mb-4">
+        <div class="flex flex-wrap gap-3">
+            <p-button label="Sticky Toast (with actions)" icon="pi pi-link" severity="secondary"
+                (onClick)="showToastWithActions()">
+            </p-button>
+
+            <p-button label="Multiple Toasts" icon="pi pi-list" severity="secondary" (onClick)="showMultipleToasts()">
+            </p-button>
+
+            <p-button label="Clear All Toasts" icon="pi pi-trash" severity="danger" (onClick)="clearAll()">
+            </p-button>
+        </div>
+    </p-card>
+
+    <!-- Toast Management -->
+    <p-card header="Toast Management" styleClass="mb-4">
+        <div class="flex flex-wrap gap-3">
+            <p-button label="Clear Top Left" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('tl')">
+            </p-button>
+
+            <p-button label="Clear Top Center" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('tc')">
+            </p-button>
+
+            <p-button label="Clear Top Right" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('tr')">
+            </p-button>
+
+            <p-button label="Clear Bottom Left" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('bl')">
+            </p-button>
+
+            <p-button label="Clear Bottom Center" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('bc')">
+            </p-button>
+
+            <p-button label="Clear Bottom Right" icon="pi pi-times" size="small" severity="secondary"
+                (onClick)="clearSpecific('br')">
+            </p-button>
+        </div>
+    </p-card>
+
+    <!-- Usage Instructions -->
+    <p-card header="Usage Instructions" styleClass="mb-4">
+        <div class="text-sm text-gray-600">
+            <h4>Key Features:</h4>
+            <ul class="list-disc pl-5 space-y-1">
+                <li><strong>Severity Levels:</strong> success, info, warn, error</li>
+                <li><strong>Positions:</strong> top-left, top-center, top-right, bottom-left, bottom-center,
+                    bottom-right</li>
+                <li><strong>Customization:</strong> message, duration, severity, and positioning</li>
+                <li><strong>Sticky Toasts:</strong> toasts that don't auto-dismiss (life: 0)</li>
+                <li><strong>Multiple Toasts:</strong> show several toasts at once</li>
+                <li><strong>Toast Management:</strong> clear specific or all toasts</li>
+            </ul>
+
+            <h4 class="mt-3">Toast Properties:</h4>
+            <ul class="list-disc pl-5 space-y-1">
+                <li><strong>severity:</strong> visual style and icon</li>
+                <li><strong>summary:</strong> toast title</li>
+                <li><strong>detail:</strong> toast message content</li>
+                <li><strong>life:</strong> auto-dismiss time in milliseconds</li>
+                <li><strong>key:</strong> unique identifier for positioning</li>
+                <li><strong>sticky:</strong> prevents auto-dismiss</li>
+            </ul>
+        </div>
+    </p-card>
+</div>

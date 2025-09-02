@@ -1,0 +1,85 @@
+<div class="chat-container">
+    <div class="chat-header">
+        <div class="header-content">
+            <div class="header-text">
+                <h2><i class="pi pi-comments"></i> PrimeNG Chat Input Examples</h2>
+                <p>Explore different types of chat input components and file uploads in PrimeNG</p>
+            </div>
+            <button pButton [icon]="isDarkTheme ? 'pi pi-sun' : 'pi pi-moon'"
+                class="p-button-rounded p-button-text theme-toggle-btn" (click)="toggleTheme()" pTooltip="Toggle theme"
+                tooltipPosition="bottom">
+            </button>
+        </div>
+    </div>
+
+    <div class="chat-interface">
+        <!-- Chat Messages Area -->
+        <div class="chat-messages" #messagesContainer (scroll)="onScroll()">
+            <div *ngFor="let message of messages; trackBy: trackByMessage" class="message" [ngClass]="message.type">
+                <div class="message-content">
+                    <div class="message-text">{{ message.text }}</div>
+                    <div class="message-time">{{ message.time | date:'shortTime' }}</div>
+                </div>
+                <div *ngIf="message.files && message.files.length > 0" class="message-files">
+                    <div *ngFor="let file of message.files" class="file-item">
+                        <i class="pi pi-file"></i>
+                        <span>{{ file.name }}</span>
+                        <small>({{ formatFileSize(file.size) }})</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll to bottom indicator -->
+            <div *ngIf="showScrollIndicator" class="scroll-indicator">
+                <button pButton icon="pi pi-arrow-down"
+                    class="p-button-rounded p-button-text p-button-sm scroll-to-bottom-btn"
+                    [ngClass]="{'pulse': scrollIndicatorPulse}" (click)="scrollToBottomManually()"
+                    pTooltip="Scroll to bottom" tooltipPosition="left">
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Input input Area -->
+        <div class="chat-input flex items-center gap-2 p-2 border-t bg-white">
+            <!-- File Upload Button -->
+            <p-fileUpload name="chatFiles[]" [customUpload]="true" (uploadHandler)="onUpload($event)" [multiple]="true"
+                mode="basic" chooseLabel="+" accept="image/*" [maxFileSize]="2000000" [auto]="true"
+                styleClass="upload-btn" pTooltip="Upload files" tooltipPosition="top">
+            </p-fileUpload>
+
+            <!-- Textarea Input -->
+            <textarea pInputTextarea [(ngModel)]="message" rows="1" placeholder="Type a message..." [autoResize]="true"
+                (keydown.enter)="sendMessage($event)" (keydown.shift.enter)="$event.stopPropagation()"
+                style="flex:1; max-height:150px; overflow-y:auto; resize:none;">
+            </textarea>
+
+            <!-- Send Button -->
+            <button pButton icon="pi pi-send" class="p-button-rounded p-button-primary" (click)="sendMessage()"
+                [disabled]="!message.trim() && uploadedFiles.length === 0" pTooltip="Send message"
+                tooltipPosition="top">
+            </button>
+        </div>
+    </div>
+
+    <!-- Uploaded Files Display -->
+    <div class="uploaded-files-section" *ngIf="uploadedFiles.length > 0">
+        <h3><i class="pi pi-folder-open"></i> Uploaded Files</h3>
+        <div class="files-grid">
+            <div *ngFor="let file of uploadedFiles; let i = index" class="file-card">
+                <div class="file-info">
+                    <i class="pi pi-file"></i>
+                    <span class="file-name">{{ file.name }}</span>
+                    <span class="file-size">{{ formatFileSize(file.size) }}</span>
+                </div>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                    (click)="removeFile(i)" pTooltip="Remove file" tooltipPosition="top">
+                </button>
+            </div>
+        </div>
+        <div class="files-actions">
+            <button pButton label="Clear All" icon="pi pi-trash" class="p-button-text p-button-sm"
+                (click)="clearAllFiles()">
+            </button>
+        </div>
+    </div>
+</div>

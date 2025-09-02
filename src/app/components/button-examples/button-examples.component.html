@@ -1,0 +1,157 @@
+<div class="button-examples">
+    <div class="page-header">
+        <h2><i class="pi pi-circle-fill"></i> PrimeNG Button Examples</h2>
+        <p>Explore different types of buttons and their variations in PrimeNG</p>
+    </div>
+
+    <div class="examples-grid">
+        <!-- Basic Buttons -->
+        <div class="example-section">
+            <h3>Basic Buttons</h3>
+            <div class="button-group">
+                <p-button label="Primary" icon="pi pi-check"></p-button>
+                <p-button label="Secondary" severity="secondary" icon="pi pi-user"></p-button>
+                <p-button label="Success" severity="success" icon="pi pi-check-circle"></p-button>
+                <p-button label="Info" severity="info" icon="pi pi-info-circle"></p-button>
+                <p-button label="Warning" severity="warning" icon="pi pi-exclamation-triangle"></p-button>
+                <p-button label="Danger" severity="danger" icon="pi pi-times"></p-button>
+                <p-button label="Submit" type="submit" icon="pi pi-check"></p-button>
+                <p-button label="Color" severity="success" icon="pi pi-palette"></p-button>
+            </div>
+        </div>
+
+        <!-- Button Sizes -->
+        <div class="example-section">
+            <h3>Button Sizes</h3>
+            <div class="button-group">
+                <p-button label="Small" size="small"></p-button>
+                <p-button label="Normal"></p-button>
+                <p-button label="Large" size="large"></p-button>
+            </div>
+        </div>
+
+        <!-- Button Variants -->
+        <div class="example-section">
+            <h3>Button Variants</h3>
+            <div class="button-group">
+                <p-button label="Filled" icon="pi pi-star"></p-button>
+                <p-button label="Outlined" [outlined]="true" icon="pi pi-star"></p-button>
+                <p-button label="Text" [text]="true" icon="pi pi-star"></p-button>
+                <p-button label="Link" [link]="true" icon="pi pi-star"></p-button>
+            </div>
+        </div>
+
+        <!-- Icon Only Buttons -->
+        <div class="example-section">
+            <h3>Icon Only Buttons</h3>
+            <div class="button-group">
+                <p-button icon="pi pi-home" aria-label="Home"></p-button>
+                <p-button icon="pi pi-search" severity="secondary" aria-label="Search"></p-button>
+                <p-button icon="pi pi-heart" severity="success" aria-label="Like"></p-button>
+                <p-button icon="pi pi-cog" severity="info" aria-label="Settings"></p-button>
+                <p-button icon="pi pi-bell" severity="warning" aria-label="Notifications"></p-button>
+                <p-button icon="pi pi-trash" severity="danger" aria-label="Delete"></p-button>
+            </div>
+        </div>
+
+        <!-- Loading Buttons -->
+        <div class="example-section">
+            <h3>Loading Buttons</h3>
+            <div class="button-group">
+                <p-button label="Loading" [loading]="true"></p-button>
+                <p-button label="Loading" [loading]="true" severity="secondary"></p-button>
+                <p-button icon="pi pi-download" [loading]="true" aria-label="Download"></p-button>
+            </div>
+        </div>
+
+        <!-- Disabled Buttons -->
+        <div class="example-section">
+            <h3>Disabled Buttons</h3>
+            <div class="button-group">
+                <p-button label="Disabled" [disabled]="true"></p-button>
+                <p-button label="Disabled" [disabled]="true" severity="secondary"></p-button>
+                <p-button label="Disabled" [disabled]="true" [outlined]="true"></p-button>
+            </div>
+        </div>
+
+        <!-- Button with Badge -->
+        <div class="example-section">
+            <h3>Button with Badge</h3>
+            <div class="button-group">
+                <p-button label="Messages" icon="pi pi-envelope">
+                    <p-badge value="8" severity="danger"></p-badge>
+                </p-button>
+                <p-button label="Notifications" icon="pi pi-bell">
+                    <p-badge value="12" severity="warning"></p-badge>
+                </p-button>
+            </div>
+        </div>
+
+        <!-- Button Group -->
+        <div class="example-section">
+            <h3>Button Group</h3>
+            <div class="button-group">
+                <p-button icon="pi pi-align-left" aria-label="Left Align"></p-button>
+                <p-button icon="pi pi-align-center" aria-label="Center Align"></p-button>
+                <p-button icon="pi pi-align-right" aria-label="Right Align"></p-button>
+            </div>
+        </div>
+
+        <!-- Split Button -->
+        <div class="example-section">
+            <h3>Split Button</h3>
+            <div class="button-group">
+                <p-splitButton label="Save" icon="pi pi-check" (onClick)="onSave()">
+                    <ng-template pTemplate="items">
+                        <p-menuitem label="Save As" icon="pi pi-save" (click)="onSaveAs()"></p-menuitem>
+                        <p-menuitem label="Export" icon="pi pi-download" (click)="onExport()"></p-menuitem>
+                        <p-menuitem label="Print" icon="pi pi-print" (click)="onPrint()"></p-menuitem>
+                    </ng-template>
+                </p-splitButton>
+            </div>
+        </div>
+
+        <!-- Speed Dial -->
+        <div class="example-section">
+            <h3>Speed Dial</h3>
+            <div class="button-group">
+                <p-speedDial>
+                    <ng-template pTemplate="button">
+                        <p-button icon="pi pi-plus" aria-label="Add"></p-button>
+                    </ng-template>
+                    <ng-template pTemplate="item">
+                        <p-button icon="pi pi-user" (click)="onAddUser()" [text]="true" [rounded]="true"></p-button>
+                        <p-button icon="pi pi-file" (click)="onAddFile()" [text]="true" [rounded]="true"></p-button>
+                        <p-button icon="pi pi-folder" (click)="onAddFolder()" [text]="true" [rounded]="true"></p-button>
+                    </ng-template>
+                </p-speedDial>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Examples -->
+    <div class="interactive-section">
+        <h3>Interactive Examples</h3>
+        <div class="interactive-content">
+            <div class="counter-section">
+                <p>Counter: {{ counter }}</p>
+                <div class="button-group">
+                    <p-button label="Increment" icon="pi pi-plus" (onClick)="increment()"></p-button>
+                    <p-button label="Decrement" icon="pi pi-minus" severity="secondary"
+                        (onClick)="decrement()"></p-button>
+                    <p-button label="Reset" icon="pi pi-refresh" severity="warning" (onClick)="reset()"></p-button>
+                </div>
+            </div>
+
+            <div class="toggle-section">
+                <p>Toggle State: {{ isToggled ? 'ON' : 'OFF' }}</p>
+                <div class="button-group">
+                    <p-button [label]="isToggled ? 'Turn Off' : 'Turn On'"
+                        [icon]="isToggled ? 'pi pi-power-off' : 'pi pi-power-on'"
+                        [severity]="isToggled ? 'danger' : 'success'" (onClick)="toggle()">
+                    </p-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

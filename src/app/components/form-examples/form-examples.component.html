@@ -1,0 +1,395 @@
+<div class="form-examples-container">
+    <!-- Toast for notifications -->
+    <p-toast></p-toast>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>PrimeNG Form Examples</h1>
+        <p>Explore different form implementations using PrimeNG components</p>
+    </div>
+
+    <!-- Template-Driven Form Section -->
+    <p-card header="Template-Driven Form" styleClass="mb-4">
+        <div class="form-grid">
+            <!-- Basic Input Fields -->
+            <div class="field">
+                <label for="firstName" class="block mb-2">First Name *</label>
+                <input id="firstName" type="text" pInputText [(ngModel)]="templateForm.firstName"
+                    placeholder="Enter first name" class="w-full" />
+            </div>
+
+            <div class="field">
+                <label for="lastName" class="block mb-2">Last Name *</label>
+                <input id="lastName" type="text" pInputText [(ngModel)]="templateForm.lastName"
+                    placeholder="Enter last name" class="w-full" />
+            </div>
+
+            <div class="field">
+                <label for="email" class="block mb-2">Email *</label>
+                <input id="email" type="email" pInputText [(ngModel)]="templateForm.email"
+                    placeholder="Enter email address" class="w-full" />
+            </div>
+
+            <div class="field">
+                <label for="phone" class="block mb-2">Phone Number</label>
+                <input id="phone" type="tel" pInputText [(ngModel)]="templateForm.phone"
+                    placeholder="Enter phone number" class="w-full" />
+            </div>
+
+            <!-- Date Picker -->
+            <div class="field">
+                <label for="dateOfBirth" class="block mb-2">Date of Birth</label>
+                <p-calendar id="dateOfBirth" [(ngModel)]="templateForm.dateOfBirth" dateFormat="dd/mm/yy"
+                    placeholder="Select date" [showIcon]="true" class="w-full"></p-calendar>
+            </div>
+
+            <!-- Dropdown -->
+            <div class="field">
+                <label for="gender" class="block mb-2">Gender</label>
+                <p-dropdown id="gender" [(ngModel)]="templateForm.gender" [options]="genderOptions"
+                    placeholder="Select gender" optionLabel="label" optionValue="value" class="w-full"></p-dropdown>
+            </div>
+
+            <!-- Multi-Select -->
+            <div class="field">
+                <label for="interests" class="block mb-2">Interests</label>
+                <p-multiSelect id="interests" [(ngModel)]="templateForm.interests" [options]="interestOptions"
+                    placeholder="Select interests" optionLabel="label" optionValue="value"
+                    class="w-full"></p-multiSelect>
+            </div>
+
+            <!-- Checkbox -->
+            <div class="field">
+                <div class="flex align-items-center">
+                    <p-checkbox id="newsletter" [(ngModel)]="templateForm.newsletter" [binary]="true"></p-checkbox>
+                    <label for="newsletter" class="ml-2">Subscribe to newsletter</label>
+                </div>
+            </div>
+
+            <!-- Rating -->
+            <div class="field">
+                <label for="rating" class="block mb-2">Rate your experience</label>
+                <p-rating id="rating" [(ngModel)]="templateForm.rating" [stars]="5" [cancel]="false"></p-rating>
+            </div>
+
+            <!-- Slider -->
+            <div class="field">
+                <label for="experience" class="block mb-2">Years of Experience: {{templateForm.experience}}</label>
+                <p-slider id="experience" [(ngModel)]="templateForm.experience" [min]="0" [max]="20" [step]="1"
+                    class="w-full"></p-slider>
+            </div>
+
+            <!-- Textarea -->
+            <div class="field col-12">
+                <label for="bio" class="block mb-2">Bio</label>
+                <textarea id="bio" pInputTextarea [(ngModel)]="templateForm.bio" [rows]="3"
+                    placeholder="Tell us about yourself" class="w-full"></textarea>
+            </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="flex gap-2 mt-4">
+            <p-button label="Submit" icon="pi pi-check" (onClick)="onSubmitTemplateForm()"
+                styleClass="p-button-success"></p-button>
+            <p-button label="Reset" icon="pi pi-refresh" (onClick)="resetTemplateForm()"
+                styleClass="p-button-secondary"></p-button>
+        </div>
+    </p-card>
+
+    <!-- Divider -->
+    <p-divider></p-divider>
+
+    <!-- Reactive Form Section -->
+    <p-card header="Reactive Form with Validation" styleClass="mb-4">
+        <form [formGroup]="reactiveForm" (ngSubmit)="onSubmitReactiveForm()">
+            <div class="form-grid">
+                <!-- First Name -->
+                <div class="field">
+                    <label for="reactiveFirstName" class="block mb-2">First Name *</label>
+                    <input id="reactiveFirstName" type="text" pInputText formControlName="firstName"
+                        placeholder="Enter first name" [class.ng-invalid]="isFieldInvalid('firstName')"
+                        class="w-full" />
+                    <small *ngIf="isFieldInvalid('firstName')" class="p-error block mt-1">
+                        {{getErrorMessage('firstName')}}
+                    </small>
+                </div>
+
+                <!-- Last Name -->
+                <div class="field">
+                    <label for="reactiveLastName" class="block mb-2">Last Name *</label>
+                    <input id="reactiveLastName" type="text" pInputText formControlName="lastName"
+                        placeholder="Enter last name" [class.ng-invalid]="isFieldInvalid('lastName')" class="w-full" />
+                    <small *ngIf="isFieldInvalid('lastName')" class="p-error block mt-1">
+                        {{getErrorMessage('lastName')}}
+                    </small>
+                </div>
+
+                <!-- Email -->
+                <div class="field">
+                    <label for="reactiveEmail" class="block mb-2">Email *</label>
+                    <input id="reactiveEmail" type="email" pInputText formControlName="email"
+                        placeholder="Enter email address" [class.ng-invalid]="isFieldInvalid('email')" class="w-full" />
+                    <small *ngIf="isFieldInvalid('email')" class="p-error block mt-1">
+                        {{getErrorMessage('email')}}
+                    </small>
+                </div>
+
+                <!-- Phone -->
+                <div class="field">
+                    <label for="reactivePhone" class="block mb-2">Phone Number *</label>
+                    <input id="reactivePhone" type="tel" pInputText formControlName="phone"
+                        placeholder="Enter phone number" [class.ng-invalid]="isFieldInvalid('phone')" class="w-full" />
+                    <small *ngIf="isFieldInvalid('phone')" class="p-error block mt-1">
+                        {{getErrorMessage('phone')}}
+                    </small>
+                </div>
+
+                <!-- Date of Birth -->
+                <div class="field">
+                    <label for="reactiveDateOfBirth" class="block mb-2">Date of Birth *</label>
+                    <p-calendar id="reactiveDateOfBirth" formControlName="dateOfBirth" dateFormat="dd/mm/yy"
+                        placeholder="Select date" [showIcon]="true" [class.ng-invalid]="isFieldInvalid('dateOfBirth')"
+                        class="w-full"></p-calendar>
+                    <small *ngIf="isFieldInvalid('dateOfBirth')" class="p-error block mt-1">
+                        {{getErrorMessage('dateOfBirth')}}
+                    </small>
+                </div>
+
+                <!-- Gender -->
+                <div class="field">
+                    <label for="reactiveGender" class="block mb-2">Gender *</label>
+                    <p-dropdown id="reactiveGender" formControlName="gender" [options]="genderOptions"
+                        placeholder="Select gender" optionLabel="label" optionValue="value"
+                        [class.ng-invalid]="isFieldInvalid('gender')" class="w-full"></p-dropdown>
+                    <small *ngIf="isFieldInvalid('gender')" class="p-error block mt-1">
+                        {{getErrorMessage('gender')}}
+                    </small>
+                </div>
+
+                <!-- Interests -->
+                <div class="field">
+                    <label for="reactiveInterests" class="block mb-2">Interests *</label>
+                    <p-multiSelect id="reactiveInterests" formControlName="interests" [options]="interestOptions"
+                        placeholder="Select interests" optionLabel="label" optionValue="value"
+                        [class.ng-invalid]="isFieldInvalid('interests')" class="w-full"></p-multiSelect>
+                    <small *ngIf="isFieldInvalid('interests')" class="p-error block mt-1">
+                        {{getErrorMessage('interests')}}
+                    </small>
+                </div>
+
+                <!-- Country -->
+                <div class="field">
+                    <label for="reactiveCountry" class="block mb-2">Country *</label>
+                    <p-dropdown id="reactiveCountry" formControlName="country" [options]="countryOptions"
+                        placeholder="Select country" optionLabel="label" optionValue="value"
+                        [class.ng-invalid]="isFieldInvalid('country')" class="w-full"></p-dropdown>
+                    <small *ngIf="isFieldInvalid('country')" class="p-error block mt-1">
+                        {{getErrorMessage('country')}}
+                    </small>
+                </div>
+
+                <!-- Newsletter Checkbox -->
+                <div class="field">
+                    <div class="flex align-items-center">
+                        <p-checkbox id="reactiveNewsletter" formControlName="newsletter" [binary]="true"></p-checkbox>
+                        <label for="reactiveNewsletter" class="ml-2">Subscribe to newsletter</label>
+                    </div>
+                </div>
+
+                <!-- Rating -->
+                <div class="field">
+                    <label for="reactiveRating" class="block mb-2">Rating *</label>
+                    <p-rating id="reactiveRating" formControlName="rating" [stars]="5" [cancel]="false"></p-rating>
+                    <small *ngIf="isFieldInvalid('rating')" class="p-error block mt-1">
+                        {{getErrorMessage('rating')}}
+                    </small>
+                </div>
+
+                <!-- Experience Slider -->
+                <div class="field">
+                    <label for="reactiveExperience" class="block mb-2">Years of Experience:
+                        {{reactiveForm.get('experience')?.value}}</label>
+                    <p-slider id="reactiveExperience" formControlName="experience" [min]="0" [max]="20" [step]="1"
+                        class="w-full"></p-slider>
+                    <small *ngIf="isFieldInvalid('experience')" class="p-error block mt-1">
+                        {{getErrorMessage('experience')}}
+                    </small>
+                </div>
+
+                <!-- Bio -->
+                <div class="field col-12">
+                    <label for="reactiveBio" class="block mb-2">Bio *</label>
+                    <textarea id="reactiveBio" pInputTextarea formControlName="bio" [rows]="3"
+                        placeholder="Tell us about yourself (minimum 10 characters)"
+                        [class.ng-invalid]="isFieldInvalid('bio')" class="w-full"></textarea>
+                    <small *ngIf="isFieldInvalid('bio')" class="p-error block mt-1">
+                        {{getErrorMessage('bio')}}
+                    </small>
+                </div>
+
+                <!-- Password -->
+                <div class="field">
+                    <label for="reactivePassword" class="block mb-2">Password *</label>
+                    <p-password id="reactivePassword" formControlName="password" placeholder="Enter password"
+                        [class.ng-invalid]="isFieldInvalid('password')" [feedback]="false" [toggleMask]="true"
+                        class="w-full"></p-password>
+                    <small *ngIf="isFieldInvalid('password')" class="p-error block mt-1">
+                        {{getErrorMessage('password')}}
+                    </small>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="field">
+                    <label for="reactiveConfirmPassword" class="block mb-2">Confirm Password *</label>
+                    <p-password id="reactiveConfirmPassword" formControlName="confirmPassword"
+                        placeholder="Confirm password" [class.ng-invalid]="isFieldInvalid('confirmPassword')"
+                        [feedback]="false" [toggleMask]="true" class="w-full"></p-password>
+                    <small *ngIf="isFieldInvalid('confirmPassword')" class="p-error block mt-1">
+                        {{getErrorMessage('confirmPassword')}}
+                    </small>
+                </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="flex gap-2 mt-4">
+                <p-button type="submit" label="Submit" icon="pi pi-check" styleClass="p-button-success"
+                    [disabled]="reactiveForm.invalid"></p-button>
+                <p-button type="button" label="Reset" icon="pi pi-refresh" (onClick)="resetReactiveForm()"
+                    styleClass="p-button-secondary"></p-button>
+            </div>
+        </form>
+    </p-card>
+
+    <!-- Form Status Display -->
+    <p-card header="Form Status" styleClass="mb-4">
+        <div class="form-status-grid">
+            <div class="status-column">
+                <h3>Template Form Status</h3>
+                <pre class="bg-gray-100 p-3 rounded text-sm">{{templateForm | json}}</pre>
+            </div>
+            <div class="status-column">
+                <h3>Reactive Form Status</h3>
+                <div class="mb-2">
+                    <strong>Valid:</strong>
+                    <span [class]="reactiveForm.valid ? 'text-green-600' : 'text-red-600'">
+                        {{reactiveForm.valid ? 'Yes' : 'No'}}
+                    </span>
+                </div>
+                <div class="mb-2">
+                    <strong>Dirty:</strong>
+                    <span [class]="reactiveForm.dirty ? 'text-blue-600' : 'text-gray-600'">
+                        {{reactiveForm.dirty ? 'Yes' : 'No'}}
+                    </span>
+                </div>
+                <div class="mb-2">
+                    <strong>Touched:</strong>
+                    <span [class]="reactiveForm.touched ? 'text-blue-600' : 'text-gray-600'">
+                        {{reactiveForm.touched ? 'Yes' : 'No'}}
+                    </span>
+                </div>
+                <pre class="bg-gray-100 p-3 rounded text-sm">{{reactiveForm.value | json}}</pre>
+            </div>
+        </div>
+    </p-card>
+    <p-card header="Form Password Test" styleClass="mb-4">
+        <div class="form-grid">
+            <form [formGroup]="passwordTestForm" (ngSubmit)="onSubmitPasswordTestForm()">
+
+                <div class="card flex justify-content-center">
+                    <p-password [(ngModel)]="passwordtest" [ngModelOptions]="{standalone: true}" [toggleMask]="true">
+                        <ng-template pTemplate="header">
+                            <h6>Pick a password</h6>
+                        </ng-template>
+                        <ng-template pTemplate="footer">
+                            <p-divider />
+                            <p class="mt-2">Suggestions</p>
+                            <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                                <li>At least one lowercase</li>
+                                <li>At least one uppercase</li>
+                                <li>At least one numeric</li>
+                                <li>Minimum 8 characters</li>
+                            </ul>
+                        </ng-template>
+                    </p-password>
+                </div>
+
+            </form>
+
+        </div>
+    </p-card>
+
+    <!-- OTP Input Example -->
+    <p-card header="OTP Input Example" styleClass="mb-4">
+        <div class="form-grid">
+            <div class="field">
+                <label for="otpInput" class="block mb-2">Enter OTP Code (6 digits)</label>
+                <div class="otp-input-container">
+                    <input *ngFor="let digit of [0,1,2,3,4,5]; let i = index" type="text" maxlength="1"
+                        class="otp-digit-input" [(ngModel)]="otpDigits[i]" [ngModelOptions]="{standalone: true}"
+                        (input)="onOtpInput($event, i)" (keydown)="onOtpKeydown($event, i)" placeholder="0"
+                        inputmode="numeric" pattern="[0-9]*" />
+                </div>
+                <small class="text-gray-600 block mt-2">Enter the 6-digit code sent to your phone</small>
+            </div>
+
+            <div class="field">
+                <label for="otpInput2" class="block mb-2">Custom OTP (4 digits)</label>
+                <div class="otp-input-container">
+                    <input *ngFor="let digit of [0,1,2,3]; let i = index" type="text" maxlength="1"
+                        class="otp-digit-input" [(ngModel)]="customOtpDigits[i]" [ngModelOptions]="{standalone: true}"
+                        (input)="onCustomOtpInput($event, i)" (keydown)="onCustomOtpKeydown($event, i)"
+                        placeholder="*" />
+                </div>
+                <small class="text-gray-600 block mt-2">4-character custom OTP</small>
+            </div>
+
+            <div class="field">
+                <label for="otpInput3" class="block mb-2">Alphanumeric OTP (8 chars)</label>
+                <div class="otp-input-container">
+                    <input *ngFor="let digit of [0,1,2,3,4,5,6,7]; let i = index" type="text" maxlength="1"
+                        class="otp-digit-input" [(ngModel)]="alphaOtpDigits[i]" [ngModelOptions]="{standalone: true}"
+                        (input)="onAlphaOtpInput($event, i)" (keydown)="onAlphaOtpKeydown($event, i)" placeholder="#" />
+                </div>
+                <small class="text-gray-600 block mt-2">8-character alphanumeric code</small>
+            </div>
+        </div>
+
+        <div class="flex gap-2 mt-4">
+            <p-button label="Verify OTP" icon="pi pi-check" (onClick)="verifyOtp()" styleClass="p-button-success"
+                [disabled]="!otpValue || otpValue.length < 6"></p-button>
+            <p-button label="Clear All" icon="pi pi-trash" (onClick)="clearOtpInputs()"
+                styleClass="p-button-secondary"></p-button>
+        </div>
+
+        <div class="mt-4 p-3 bg-gray-50 rounded">
+            <h4 class="mb-2">OTP Values:</h4>
+            <div class="grid">
+                <div class="col-12 md:col-4">
+                    <strong>6-digit OTP:</strong> <span class="font-mono">{{otpValue || 'Not entered'}}</span>
+                </div>
+                <div class="col-12 md:col-4">
+                    <strong>4-digit OTP:</strong> <span class="font-mono">{{customOtpValue || 'Not entered'}}</span>
+                </div>
+                <div class="col-12 md:col-4">
+                    <strong>Alphanumeric:</strong> <span class="font-mono">{{alphaOtpValue || 'Not entered'}}</span>
+                </div>
+            </div>
+        </div>
+    </p-card>
+
+
+    <p-inputNumber inputId="integeronly" [(ngModel)]="value1" />
+    
+    <p-inputNumber [(ngModel)]="value2" mode="decimal" inputId="withoutgrouping" [useGrouping]="false" />
+    
+    <p-inputNumber [(ngModel)]="value3" inputId="minmaxfraction" mode="decimal" [minFractionDigits]="2"
+        [maxFractionDigits]="5" />
+    
+    <p-inputNumber [(ngModel)]="value4" inputId="minmax" mode="decimal" [min]="0" [max]="100" />
+</div>
+
+<p-editor [(ngModel)]="text" [style]="{ height: '320px' }" />
+
+<p-dropdown [options]="cities" [(ngModel)]="selectedCity"   optionLabel="name" placeholder="Select city">
+
+</p-dropdown>
