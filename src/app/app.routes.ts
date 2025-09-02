@@ -7,6 +7,7 @@ import { ChatInputComponent } from './components/chat-input/chat-input.component
 import { ToastExamplesComponent } from './components/toast-examples/toast-examples.component';
 import { ScrollExamplesComponent } from './components/scroll-examples/scroll-examples.component';
 import { FormExamplesComponent } from './components/form-examples/form-examples.component';
+import { DropdownExamplesComponent } from './components/dropdown-examples/dropdown-examples.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/buttons', pathMatch: 'full' },
@@ -17,5 +18,6 @@ export const routes: Routes = [
     { path: 'chat-input', component: ChatInputComponent },
     { path: 'toast', component: ToastExamplesComponent },
     { path: 'scroll', component: ScrollExamplesComponent },
-    { path: 'form', component: FormExamplesComponent }
+    { path: 'form', component: FormExamplesComponent },
+    { path: 'dropdown', component: DropdownExamplesComponent }
 ];
