@@ -1,0 +1,23 @@
+<div class="maps-examples-container">
+    <p-card header="Google Maps - Basic Map" class="example-card">
+        <google-map height="400px" width="100%" [center]="center" [zoom]="zoom" [options]="options">
+            <map-marker *ngFor="let m of markers" [position]="m.position" [label]="m.label" [title]="m.title"
+                [options]="m.options">
+            </map-marker>
+            <map-polygon [paths]="polygonPaths" [options]="polygonOptions"></map-polygon>
+            <map-circle [center]="circleCenter" [options]="circleOptions"></map-circle>
+        </google-map>
+        <div class="actions">
+            <p-button label="Toggle Map Type" icon="pi pi-map" (onClick)="toggleMapType()"></p-button>
+            <p-button label="Randomize Center" icon="pi pi-compass" severity="secondary"
+                (onClick)="randomizeCenter()"></p-button>
+            <p-button label="Add Marker" icon="pi pi-plus" severity="success" (onClick)="addMarker()"></p-button>
+        </div>
+    </p-card>
+
+    <p-card header="Random Heat Markers" class="example-card">
+        <google-map height="300px" width="100%" [center]="center" [zoom]="11" [options]="options">
+            <map-marker *ngFor="let m of heatMarkers" [position]="m.position" [options]="{opacity: 0.6}"></map-marker>
+        </google-map>
+    </p-card>
+</div>

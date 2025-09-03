@@ -1,0 +1,72 @@
+<div class="drag-drop-examples-container">
+    <p-toast></p-toast>
+
+    <!-- File Upload Example -->
+    <p-card header="File Upload with Drag & Drop">
+        <p-fileUpload mode="basic" name="demo[]" url="/api/upload" accept="image/*" maxFileSize="1000000"
+            (onUpload)="onUpload($event)" chooseLabel="Choose Files" uploadLabel="Upload" cancelLabel="Cancel">
+        </p-fileUpload>
+        <div class="uploaded-files" *ngIf="uploadedFiles.length > 0">
+            <h4>Uploaded Files:</h4>
+            <ul>
+                <li *ngFor="let file of uploadedFiles">{{ file.name }}</li>
+            </ul>
+        </div>
+    </p-card>
+
+    <!-- Kanban Board Example -->
+    <p-card header="Task Board (Drag & Drop between columns)">
+        <div class="kanban-board">
+            <!-- To Do Column -->
+            <div class="kanban-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'todo')">
+                <div class="column-header" [style.background-color]="getStatusColor('todo')">
+                    <h3>To Do</h3>
+                    <span class="task-count">{{ todoTasks.length }}</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-item" *ngFor="let task of todoTasks" [draggable]="true"
+                        (dragstart)="onDragStart($event, task)">
+                        <div class="task-content">
+                            <h4>{{ task.title }}</h4>
+                            <p-tag [value]="task.priority" [severity]="getPrioritySeverity(task.priority)"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- In Progress Column -->
+            <div class="kanban-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'in-progress')">
+                <div class="column-header" [style.background-color]="getStatusColor('in-progress')">
+                    <h3>In Progress</h3>
+                    <span class="task-count">{{ inProgressTasks.length }}</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-item" *ngFor="let task of inProgressTasks" [draggable]="true"
+                        (dragstart)="onDragStart($event, task)">
+                        <div class="task-content">
+                            <h4>{{ task.title }}</h4>
+                            <p-tag [value]="task.priority" [severity]="getPrioritySeverity(task.priority)"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Done Column -->
+            <div class="kanban-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'done')">
+                <div class="column-header" [style.background-color]="getStatusColor('done')">
+                    <h3>Done</h3>
+                    <span class="task-count">{{ doneTasks.length }}</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-item" *ngFor="let task of doneTasks" [draggable]="true"
+                        (dragstart)="onDragStart($event, task)">
+                        <div class="task-content">
+                            <h4>{{ task.title }}</h4>
+                            <p-tag [value]="task.priority" [severity]="getPrioritySeverity(task.priority)"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>

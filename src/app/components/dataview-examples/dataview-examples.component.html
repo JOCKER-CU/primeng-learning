@@ -1,0 +1,62 @@
+<div class="dataview-examples-container">
+    <div class="toolbar">
+        <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" optionLabel="label" optionValue="value"
+            (onChange)="onSortChange()" placeholder="Sort By"></p-dropdown>
+
+        <div class="layout-toggle">
+            <p-button icon="pi pi-bars" [outlined]="layout !== 'list'" (onClick)="layout = 'list'"></p-button>
+            <p-button icon="pi pi-th-large" [outlined]="layout !== 'grid'" (onClick)="layout = 'grid'"></p-button>
+        </div>
+    </div>
+
+    <p-dataView [value]="products" [layout]="layout" [paginator]="true" [rows]="8">
+        <ng-template pTemplate="list" let-items>
+            <div class="list">
+                <div class="list-item" *ngFor="let product of items">
+                    <img [src]="product.image" [alt]="product.name" (error)="onImgError($event)"
+                        (load)="onImgLoad($event)" />
+                    <div class="content">
+                        <div class="name">{{ product.name }}</div>
+                        <div class="meta">
+                            <span class="category">{{ product.category }}</span>
+                            <span class="price">${{ product.price }}</span>
+                            <p-tag [value]="product.inventoryStatus"
+                                [severity]="getInventorySeverity(product.inventoryStatus)"></p-tag>
+                        </div>
+                        <div class="actions">
+                            <p-button label="Buy" icon="pi pi-shopping-cart"></p-button>
+                            <p-button label="Details" icon="pi pi-search" severity="secondary"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="grid" let-items>
+            <div class="grid">
+                <div class="grid-item" *ngFor="let product of items">
+                    <p-card>
+                        <ng-template pTemplate="header">
+                            <img [src]="product.image" [alt]="product.name" (error)="onImgError($event)"
+                                (load)="onImgLoad($event)" />
+                        </ng-template>
+                        <div class="name">{{ product.name }}</div>
+                        <div class="meta">
+                            <span class="category">{{ product.category }}</span>
+                            <span class="price">${{ product.price }}</span>
+                        </div>
+                        <div style="margin-bottom: 20px;">
+                            <p-tag [value]="product.inventoryStatus"
+                                [severity]="getInventorySeverity(product.inventoryStatus)"></p-tag>
+                        </div>
+
+                        <div class="actions mt-2">
+                            <p-button label="Buy" icon="pi pi-shopping-cart"></p-button>
+                            <p-button label="Details" icon="pi pi-search" severity="secondary"></p-button>
+                        </div>
+                    </p-card>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

@@ -42,6 +42,26 @@
           <i class="pi pi-list"></i>
           Dropdown
         </a>
+        <a routerLink="/maps" [class.active]="isRouteActive('/maps')" class="nav-link">
+          <i class="pi pi-map"></i>
+          Maps
+        </a>
+        <a routerLink="/dataview" [class.active]="isRouteActive('/dataview')" class="nav-link">
+          <i class="pi pi-th-large"></i>
+          DataView
+        </a>
+        <a routerLink="/timeline" [class.active]="isRouteActive('/timeline')" class="nav-link">
+          <i class="pi pi-calendar"></i>
+          Timeline
+        </a>
+        <a routerLink="/dock" [class.active]="isRouteActive('/dock')" class="nav-link">
+          <i class="pi pi-desktop"></i>
+          Dock
+        </a>
+        <a routerLink="/drag-drop" [class.active]="isRouteActive('/drag-drop')" class="nav-link">
+          <i class="pi pi-arrows-alt"></i>
+          Drag & Drop
+        </a>
       </nav>
 
     </div>

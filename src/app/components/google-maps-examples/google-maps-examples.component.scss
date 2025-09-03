@@ -1,0 +1,12 @@
+.maps-examples-container {
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.example-card .actions {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}

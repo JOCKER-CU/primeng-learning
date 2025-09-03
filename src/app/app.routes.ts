@@ -8,6 +8,11 @@ import { ToastExamplesComponent } from './components/toast-examples/toast-exampl
 import { ScrollExamplesComponent } from './components/scroll-examples/scroll-examples.component';
 import { FormExamplesComponent } from './components/form-examples/form-examples.component';
 import { DropdownExamplesComponent } from './components/dropdown-examples/dropdown-examples.component';
+import { GoogleMapsExamplesComponent } from './components/google-maps-examples/google-maps-examples.component';
+import { DataviewExamplesComponent } from './components/dataview-examples/dataview-examples.component';
+import { TimelineExamplesComponent } from './components/timeline-examples/timeline-examples.component';
+import { DockExamplesComponent } from './components/dock-examples/dock-examples.component';
+import { DragDropExamplesComponent } from './components/drag-drop-examples/drag-drop-examples.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/buttons', pathMatch: 'full' },
@@ -19,5 +24,10 @@ export const routes: Routes = [
     { path: 'toast', component: ToastExamplesComponent },
     { path: 'scroll', component: ScrollExamplesComponent },
     { path: 'form', component: FormExamplesComponent },
-    { path: 'dropdown', component: DropdownExamplesComponent }
+    { path: 'dropdown', component: DropdownExamplesComponent },
+    { path: 'maps', component: GoogleMapsExamplesComponent },
+    { path: 'dataview', component: DataviewExamplesComponent },
+    { path: 'timeline', component: TimelineExamplesComponent },
+    { path: 'dock', component: DockExamplesComponent },
+    { path: 'drag-drop', component: DragDropExamplesComponent }
 ];

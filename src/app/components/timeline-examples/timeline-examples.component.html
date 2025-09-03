@@ -1,0 +1,37 @@
+<div class="timeline-examples-container">
+    <p-card header="Order Status (Vertical)">
+        <p-timeline [value]="events" align="alternate">
+            <ng-template pTemplate="marker" let-event>
+                <span class="custom-marker" [ngStyle]="{ 'background-color': event.color }">
+                    <i [class]="event.icon"></i>
+                </span>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                <div class="event-content">
+                    <div class="event-header">
+                        <span class="event-status">{{ event.status }}</span>
+                        <p-tag [value]="event.status" [severity]="getSeverity(event.status)"></p-tag>
+                    </div>
+                    <div class="event-meta">{{ event.date }} • {{ event.location || '—' }}</div>
+                    <div class="event-description">{{ event.description }}</div>
+                </div>
+            </ng-template>
+        </p-timeline>
+    </p-card>
+
+    <p-card header="Project Roadmap (Horizontal)">
+        <p-timeline [value]="horizontalEvents" layout="horizontal">
+            <ng-template pTemplate="marker" let-event>
+                <span class="custom-marker" [ngStyle]="{ 'background-color': event.color }">
+                    <i [class]="event.icon"></i>
+                </span>
+            </ng-template>
+            <ng-template pTemplate="content" let-event>
+                <div class="event-content small">
+                    <div class="event-status">{{ event.status }}</div>
+                    <div class="event-meta">{{ event.date }}</div>
+                </div>
+            </ng-template>
+        </p-timeline>
+    </p-card>
+</div>

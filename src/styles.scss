@@ -77,7 +77,7 @@ body.dark-theme {
   padding-left: 1.25rem;
 }
 
-.space-y-1 > * + * {
+.space-y-1>*+* {
   margin-top: 0.25rem;
 }
 
@@ -122,7 +122,7 @@ body.dark-theme {
   .md\:col-4 {
     grid-column: span 4;
   }
-  
+
   .md\:col-6 {
     grid-column: span 6;
   }
@@ -153,7 +153,7 @@ body.dark-theme {
 ::-webkit-scrollbar-thumb {
   background: var(--primary-color);
   border-radius: 4px;
-  
+
   &:hover {
     background: var(--primary-600);
   }
@@ -164,7 +164,7 @@ body.dark-theme {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid var(--surface-border);
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  
+
   &:hover {
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
@@ -173,11 +173,11 @@ body.dark-theme {
 /* Button enhancements */
 .p-button {
   transition: all 0.2s ease;
-  
+
   &:hover {
     transform: translateY(-1px);
   }
-  
+
   &:active {
     transform: translateY(0);
   }
@@ -187,9 +187,229 @@ body.dark-theme {
 .p-inputtext,
 .p-inputtextarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  
+
   &:focus {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 2px var(--primary-200);
+  }
+}
+
+/* ===================== */
+/* Global Animations     */
+/* ===================== */
+
+/* Fades */
+.fade-in {
+  animation: fade-in 300ms ease both;
+}
+
+.fade-in-slow {
+  animation: fade-in 600ms ease both;
+}
+
+.fade-out {
+  animation: fade-out 300ms ease both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* Slides */
+.slide-up {
+  animation: slide-up 300ms ease both;
+}
+
+.slide-down {
+  animation: slide-down 300ms ease both;
+}
+
+.slide-left {
+  animation: slide-left 300ms ease both;
+}
+
+.slide-right {
+  animation: slide-right 300ms ease both;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(-8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Zooms / Scales */
+.zoom-in {
+  animation: zoom-in 250ms ease both;
+}
+
+.zoom-out {
+  animation: zoom-out 250ms ease both;
+}
+
+.scale-in {
+  animation: scale-in 200ms ease both;
+}
+
+.scale-out {
+  animation: scale-out 200ms ease both;
+}
+
+@keyframes zoom-in {
+  from {
+    transform: scale(.95);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoom-out {
+  from {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(.98);
+    opacity: .8;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  to {
+    transform: scale(.98);
+    opacity: .8;
+  }
+}
+
+/* Stagger helper */
+.stagger>* {
+  opacity: 0;
+  animation: fade-in 400ms ease both;
+}
+
+.stagger>*:nth-child(1) {
+  animation-delay: .00s;
+}
+
+.stagger>*:nth-child(2) {
+  animation-delay: .05s;
+}
+
+.stagger>*:nth-child(3) {
+  animation-delay: .10s;
+}
+
+.stagger>*:nth-child(4) {
+  animation-delay: .15s;
+}
+
+.stagger>*:nth-child(5) {
+  animation-delay: .20s;
+}
+
+/* Hover effects */
+.hover-raise {
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.hover-raise:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+}
+
+.hover-glow {
+  transition: box-shadow 160ms ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 0 3px var(--primary-200);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
   }
 }
