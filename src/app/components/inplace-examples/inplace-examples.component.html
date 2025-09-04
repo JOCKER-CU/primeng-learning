@@ -1,0 +1,254 @@
+<div class="inplace-examples-container">
+    <p-toast></p-toast>
+
+    <!-- Basic Text Inplace -->
+    <p-card header="Basic Text Inplace">
+        <div class="inplace-demo">
+            <h4>Simple Text Editing:</h4>
+            <p-inplace>
+                <ng-template pTemplate="display">
+                    <span class="inplace-display">{{ textValue }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <input pInputText [(ngModel)]="textValue" (blur)="onTextSave(textValue)"
+                        (keyup.enter)="onTextSave(textValue)" class="inplace-input">
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Textarea Inplace -->
+    <p-card header="Textarea Inplace">
+        <div class="inplace-demo">
+            <h4>Multi-line Text Editing:</h4>
+            <p-inplace>
+                <ng-template pTemplate="display">
+                    <div class="inplace-display textarea-display">{{ textareaValue }}</div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <textarea pInputTextarea [(ngModel)]="textareaValue" (blur)="onTextareaSave(textareaValue)" rows="3"
+                        class="inplace-textarea">
+          </textarea>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Image Inplace -->
+    <p-card header="Image Inplace">
+        <div class="inplace-demo">
+            <h4>Image URL Editing:</h4>
+            <p-inplace>
+                <ng-template pTemplate="display">
+                    <div class="image-display">
+                        <img [src]="imageUrl" [alt]="imageAlt" class="inplace-image">
+                        <span class="image-url">{{ imageUrl }}</span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div class="image-edit">
+                        <input pInputText [(ngModel)]="imageUrl" (blur)="onImageSave(imageUrl)"
+                            (keyup.enter)="onImageSave(imageUrl)" placeholder="Enter image URL" class="inplace-input">
+                        <img [src]="imageUrl" [alt]="imageAlt" class="preview-image">
+                    </div>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Dropdown Inplace -->
+    <p-card header="Dropdown Inplace">
+        <div class="inplace-demo">
+            <h4>Category Selection:</h4>
+            <p-inplace>
+                <ng-template pTemplate="display">
+                    <span class="inplace-display">{{ selectedCategory }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <p-dropdown [(ngModel)]="selectedCategory" [options]="categories"
+                        (onChange)="onCategorySave(selectedCategory)" optionLabel="label" optionValue="value"
+                        class="inplace-dropdown">
+                    </p-dropdown>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Date Inplace -->
+    <p-card header="Date Inplace">
+        <div class="inplace-demo">
+            <h4>Date Selection:</h4>
+            <p-inplace>
+                <ng-template pTemplate="display">
+                    <span class="inplace-display">{{ selectedDate | date:'medium' }}</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <p-calendar [(ngModel)]="selectedDate" (onSelect)="onDateSave(selectedDate)" dateFormat="mm/dd/yy"
+                        class="inplace-calendar">
+                    </p-calendar>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Data Table Inplace -->
+    <p-card header="Data Table Inplace">
+        <div class="table-demo">
+            <h4>Product Data with Inplace Loading:</h4>
+            <p-inplace (onActivate)="loadData()">
+                <ng-template pTemplate="display">
+                    <span class="inplace-display">View Product Data</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <p-table [value]="products" responsiveLayout="scroll" styleClass="p-datatable-sm">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>Code</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-product>
+                            <tr>
+                                <td>{{ product.code }}</td>
+                                <td>{{ product.name }}</td>
+                                <td>{{ product.category }}</td>
+                                <td>{{ product.quantity }}</td>
+                                <td>${{ product.price }}</td>
+                                <td>
+                                    <p-button icon="pi pi-pencil" [text]="true" severity="info"
+                                        (onClick)="startEditingProduct(product)" size="small">
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- User Management Inplace -->
+    <p-card header="User Management Inplace">
+        <div class="table-demo">
+            <h4>User Data with Inplace Editing:</h4>
+            <p-inplace (onActivate)="loadUserData()">
+                <ng-template pTemplate="display">
+                    <span class="inplace-display">View User Data</span>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <p-table [value]="users" responsiveLayout="scroll" styleClass="p-datatable-sm">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Role</th>
+                                <th>Status</th>
+                                <th>Last Login</th>
+                                <th>Actions</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-user>
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.name }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.role }}</td>
+                                <td>
+                                    <span [class]="'status-badge ' + user.status.toLowerCase()">{{ user.status }}</span>
+                                </td>
+                                <td>{{ user.lastLogin | date:'short' }}</td>
+                                <td>
+                                    <p-button icon="pi pi-pencil" [text]="true" severity="info"
+                                        (onClick)="startEditingUser(user)" size="small">
+                                    </p-button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </ng-template>
+            </p-inplace>
+        </div>
+    </p-card>
+
+    <!-- Product Edit Dialog -->
+    <p-dialog header="Edit Product" [(visible)]="showProductDialog" [modal]="true" [style]="{width: '500px'}"
+        (onHide)="cancelProductEdit()">
+        <div *ngIf="editingProduct" class="edit-form">
+            <div class="field">
+                <label for="code">Code:</label>
+                <input pInputText id="code" [(ngModel)]="editingProduct.code" readonly>
+            </div>
+            <div class="field">
+                <label for="name">Name:</label>
+                <input pInputText id="name" [(ngModel)]="editingProduct.name">
+            </div>
+            <div class="field">
+                <label for="category">Category:</label>
+                <p-dropdown id="category" [(ngModel)]="editingProduct.category" [options]="categories"
+                    optionLabel="label" optionValue="value">
+                </p-dropdown>
+            </div>
+            <div class="field">
+                <label for="quantity">Quantity:</label>
+                <input pInputText id="quantity" [(ngModel)]="editingProduct.quantity" type="number">
+            </div>
+            <div class="field">
+                <label for="price">Price:</label>
+                <input pInputText id="price" [(ngModel)]="editingProduct.price" type="number" step="0.01">
+            </div>
+            <div class="field">
+                <label for="description">Description:</label>
+                <textarea pInputTextarea id="description" [(ngModel)]="editingProduct.description" rows="3"></textarea>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" icon="pi pi-times" (onClick)="cancelProductEdit()" severity="secondary"></p-button>
+            <p-button label="Save" icon="pi pi-check" (onClick)="saveProduct()"></p-button>
+        </ng-template>
+    </p-dialog>
+
+    <!-- User Edit Dialog -->
+    <p-dialog header="Edit User" [(visible)]="showUserDialog" [modal]="true" [style]="{width: '500px'}"
+        (onHide)="cancelUserEdit()">
+        <div *ngIf="editingUser" class="edit-form">
+            <div class="field">
+                <label for="userId">ID:</label>
+                <input pInputText id="userId" [(ngModel)]="editingUser.id" readonly>
+            </div>
+            <div class="field">
+                <label for="userName">Name:</label>
+                <input pInputText id="userName" [(ngModel)]="editingUser.name">
+            </div>
+            <div class="field">
+                <label for="userEmail">Email:</label>
+                <input pInputText id="userEmail" [(ngModel)]="editingUser.email" type="email">
+            </div>
+            <div class="field">
+                <label for="userRole">Role:</label>
+                <p-dropdown id="userRole" [(ngModel)]="editingUser.role" [options]="roles" optionLabel="label"
+                    optionValue="value">
+                </p-dropdown>
+            </div>
+            <div class="field">
+                <label for="userStatus">Status:</label>
+                <p-dropdown id="userStatus" [(ngModel)]="editingUser.status" [options]="statuses" optionLabel="label"
+                    optionValue="value">
+                </p-dropdown>
+            </div>
+            <div class="field">
+                <label for="lastLogin">Last Login:</label>
+                <p-calendar id="lastLogin" [(ngModel)]="editingUser.lastLogin" dateFormat="mm/dd/yy">
+                </p-calendar>
+            </div>
+        </div>
+        <ng-template pTemplate="footer">
+            <p-button label="Cancel" icon="pi pi-times" (onClick)="cancelUserEdit()" severity="secondary"></p-button>
+            <p-button label="Save" icon="pi pi-check" (onClick)="saveUser()"></p-button>
+        </ng-template>
+    </p-dialog>
+</div>

@@ -13,6 +13,9 @@ import { DataviewExamplesComponent } from './components/dataview-examples/datavi
 import { TimelineExamplesComponent } from './components/timeline-examples/timeline-examples.component';
 import { DockExamplesComponent } from './components/dock-examples/dock-examples.component';
 import { DragDropExamplesComponent } from './components/drag-drop-examples/drag-drop-examples.component';
+import { SkeletonExamplesComponent } from './components/skeleton-examples/skeleton-examples.component';
+import { InplaceExamplesComponent } from './components/inplace-examples/inplace-examples.component';
+import { CarouselExamplesComponent } from './components/carousel-examples/carousel-examples.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/buttons', pathMatch: 'full' },
@@ -29,5 +32,8 @@ export const routes: Routes = [
     { path: 'dataview', component: DataviewExamplesComponent },
     { path: 'timeline', component: TimelineExamplesComponent },
     { path: 'dock', component: DockExamplesComponent },
-    { path: 'drag-drop', component: DragDropExamplesComponent }
+    { path: 'drag-drop', component: DragDropExamplesComponent },
+    { path: 'skeleton', component: SkeletonExamplesComponent },
+    { path: 'inplace', component: InplaceExamplesComponent },
+    { path: 'carousel', component: CarouselExamplesComponent }
 ];

@@ -67,6 +67,26 @@
                     </div>
                 </div>
             </div>
+
+            <!-- To Do Column -->
+            <div class="kanban-column" (dragover)="onDragOver($event)" (drop)="onDrop($event, 'todo')">
+                <div class="column-header" [style.background-color]="getStatusColor('todo')">
+                    <h3>To Do</h3>
+                    <span class="task-count">{{ todoTasks.length }}</span>
+                </div>
+                <div class="task-list">
+                    <div class="task-item" *ngFor="let task of todoTasks" [draggable]="true"
+                        (dragstart)="onDragStart($event, task)">
+                        <div class="task-content">
+                            <h4>{{ task.title }}</h4>
+                            <p-tag [value]="task.priority" [severity]="getPrioritySeverity(task.priority)"></p-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </p-card>
+
+    <p-tree class="w-full md:w-30rem" [value]="files" />
+
 </div>

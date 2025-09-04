@@ -1,0 +1,211 @@
+<div class="skeleton-examples-container">
+    <!-- Controls -->
+    <p-card header="Skeleton Controls">
+        <div class="controls">
+            <p-button [label]="isLoading ? 'Show Content' : 'Show Loading'" (onClick)="toggleLoading()"
+                [severity]="isLoading ? 'success' : 'warning'">
+            </p-button>
+            <p-button label="Reset Demo" (onClick)="resetDemo()" severity="secondary" styleClass="ml-2">
+            </p-button>
+        </div>
+
+        <div class="settings mt-3">
+            <div class="setting-group">
+                <label>Animation:</label>
+                <p-dropdown [options]="[{label: 'Wave', value: 'wave'}, {label: 'None', value: 'none'}]"
+                    [(ngModel)]="selectedAnimation" optionLabel="label" optionValue="value">
+                </p-dropdown>
+            </div>
+
+            <div class="setting-group">
+                <label>Border Radius:</label>
+                <p-dropdown
+                    [options]="[{label: 'None', value: '0'}, {label: 'Small', value: '4px'}, {label: 'Medium', value: '8px'}, {label: 'Large', value: '12px'}]"
+                    [(ngModel)]="selectedBorderRadius" optionLabel="label" optionValue="value">
+                </p-dropdown>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Basic Skeleton Examples -->
+    <p-card header="Basic Skeleton Shapes">
+        <div class="skeleton-demo">
+            <div class="demo-item">
+                <h4>Rectangle</h4>
+                <p-skeleton width="100%" height="2rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius">
+                </p-skeleton>
+            </div>
+
+            <div class="demo-item">
+                <h4>Circle</h4>
+                <p-skeleton shape="circle" size="4rem" [animation]="selectedAnimation">
+                </p-skeleton>
+            </div>
+
+            <div class="demo-item">
+                <h4>Text Lines</h4>
+                <p-skeleton width="100%" height="1rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                <p-skeleton width="75%" height="1rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+                <p-skeleton width="50%" height="1rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Card Skeleton -->
+    <p-card header="Card Loading State">
+        <div class="card-demo">
+            <div class="card-skeleton" *ngIf="isLoading">
+                <p-skeleton width="100%" height="200px" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                <div class="card-content-skeleton">
+                    <p-skeleton width="60%" height="1.5rem" [animation]="selectedAnimation"
+                        [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                    <p-skeleton width="100%" height="1rem" [animation]="selectedAnimation"
+                        [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+                    <p-skeleton width="80%" height="1rem" [animation]="selectedAnimation"
+                        [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+                    <div class="card-actions mt-3">
+                        <p-skeleton width="80px" height="2rem" [animation]="selectedAnimation"
+                            [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                        <p-skeleton width="80px" height="2rem" [animation]="selectedAnimation"
+                            [style.border-radius]="selectedBorderRadius" styleClass="ml-2"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-content" *ngIf="showContent">
+                <img src="https://picsum.photos/400/200" alt="Sample" class="card-image">
+                <div class="card-body">
+                    <h3>Product Card</h3>
+                    <p>This is a sample product card that was loaded after the skeleton animation.</p>
+                    <p>It demonstrates how skeleton loading provides a smooth transition to actual content.</p>
+                    <div class="card-actions">
+                        <p-button label="Buy Now" severity="primary"></p-button>
+                        <p-button label="Add to Cart" severity="secondary" styleClass="ml-2"></p-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Table Skeleton -->
+    <p-card header="Table Loading State">
+        <div class="table-demo">
+            <p-table [value]="isLoading ? [] : products" [loading]="isLoading">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{ product.id }}</td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.category }}</td>
+                        <td>${{ product.price }}</td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="loadingbody">
+                    <tr *ngFor="let i of [1,2,3,4,5]">
+                        <td><p-skeleton width="2rem" height="1rem" [animation]="selectedAnimation"
+                                [style.border-radius]="selectedBorderRadius"></p-skeleton></td>
+                        <td><p-skeleton width="8rem" height="1rem" [animation]="selectedAnimation"
+                                [style.border-radius]="selectedBorderRadius"></p-skeleton></td>
+                        <td><p-skeleton width="6rem" height="1rem" [animation]="selectedAnimation"
+                                [style.border-radius]="selectedBorderRadius"></p-skeleton></td>
+                        <td><p-skeleton width="4rem" height="1rem" [animation]="selectedAnimation"
+                                [style.border-radius]="selectedBorderRadius"></p-skeleton></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </p-card>
+
+    <!-- List Skeleton -->
+    <p-card header="List Loading State">
+        <div class="list-demo">
+            <div class="list-skeleton" *ngIf="isLoading">
+                <div class="list-item" *ngFor="let i of [1,2,3,4]">
+                    <p-skeleton shape="circle" size="3rem" [animation]="selectedAnimation"></p-skeleton>
+                    <div class="list-content">
+                        <p-skeleton width="12rem" height="1.2rem" [animation]="selectedAnimation"
+                            [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                        <p-skeleton width="8rem" height="1rem" [animation]="selectedAnimation"
+                            [style.border-radius]="selectedBorderRadius" styleClass="mt-1"></p-skeleton>
+                    </div>
+                </div>
+            </div>
+
+            <div class="list-content" *ngIf="showContent">
+                <div class="list-item" *ngFor="let user of users">
+                    <div class="avatar">{{ user.name.charAt(0) }}</div>
+                    <div class="user-info">
+                        <h4>{{ user.name }}</h4>
+                        <p>{{ user.email }} • {{ user.role }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Form Skeleton -->
+    <p-card header="Form Loading State">
+        <div class="form-demo">
+            <div class="form-skeleton" *ngIf="isLoading">
+                <p-skeleton width="6rem" height="1.2rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                <p-skeleton width="100%" height="2.5rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+
+                <p-skeleton width="8rem" height="1.2rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-3"></p-skeleton>
+                <p-skeleton width="100%" height="2.5rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+
+                <p-skeleton width="5rem" height="1.2rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-3"></p-skeleton>
+                <p-skeleton width="100%" height="2.5rem" [animation]="selectedAnimation"
+                    [style.border-radius]="selectedBorderRadius" styleClass="mt-2"></p-skeleton>
+
+                <div class="form-actions mt-3">
+                    <p-skeleton width="80px" height="2.5rem" [animation]="selectedAnimation"
+                        [style.border-radius]="selectedBorderRadius"></p-skeleton>
+                    <p-skeleton width="80px" height="2.5rem" [animation]="selectedAnimation"
+                        [style.border-radius]="selectedBorderRadius" styleClass="ml-2"></p-skeleton>
+                </div>
+            </div>
+
+            <div class="form-content" *ngIf="showContent">
+                <div class="field">
+                    <label for="name">Full Name</label>
+                    <input pInputText id="name" placeholder="Enter your name" />
+                </div>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input pInputText id="email" placeholder="Enter your email" />
+                </div>
+
+                <div class="field">
+                    <label for="role">Role</label>
+                    <p-dropdown id="role"
+                        [options]="[{label: 'Admin', value: 'admin'}, {label: 'User', value: 'user'}, {label: 'Editor', value: 'editor'}]"
+                        placeholder="Select a role" optionLabel="label" optionValue="value">
+                    </p-dropdown>
+                </div>
+
+                <div class="form-actions">
+                    <p-button label="Save" severity="primary"></p-button>
+                    <p-button label="Cancel" severity="secondary" styleClass="ml-2"></p-button>
+                </div>
+            </div>
+        </div>
+    </p-card>
+</div>

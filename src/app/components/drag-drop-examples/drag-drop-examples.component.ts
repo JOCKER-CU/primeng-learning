@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FileUploadModule } from 'primeng/fileupload';
 import { DragDropModule } from 'primeng/dragdrop';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TagModule } from 'primeng/tag';
-import { MessageService } from 'primeng/api';
+import { TreeModule } from 'primeng/tree';
+import { MessageService, TreeNode } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+
 
 interface Task {
     id: number;
@@ -25,13 +27,14 @@ interface Task {
         CardModule,
         ButtonModule,
         TagModule,
+        TreeModule,
         ToastModule
     ],
     providers: [MessageService],
     templateUrl: './drag-drop-examples.component.html',
     styleUrl: './drag-drop-examples.component.scss'
 })
-export class DragDropExamplesComponent {
+export class DragDropExamplesComponent implements OnInit {
     uploadedFiles: any[] = [];
     todoTasks: Task[] = [
         { id: 1, title: 'Design new homepage', status: 'todo', priority: 'high' },
@@ -47,7 +50,60 @@ export class DragDropExamplesComponent {
         { id: 7, title: 'Write unit tests', status: 'done', priority: 'medium' }
     ];
 
+    files: TreeNode[] = [
+        {
+            key: '0',
+            label: 'Documents',
+            data: 'Documents Folder',
+            icon: 'pi pi-fw pi-inbox',
+            children: [
+                {
+                    key: '0-0',
+                    label: 'Work',
+                    data: 'Work Folder',
+                    icon: 'pi pi-fw pi-cog',
+                    children: [
+                        { key: '0-0-0', label: 'Expenses.doc', icon: 'pi pi-fw pi-file', data: 'Expenses Document' },
+                        { key: '0-0-1', label: 'Resume.doc', icon: 'pi pi-fw pi-file', data: 'Resume Document' }
+                    ]
+                },
+                {
+                    key: '0-1',
+                    label: 'Home',
+                    data: 'Home Folder',
+                    icon: 'pi pi-fw pi-home',
+                    children: [{ key: '0-1-0', label: 'Invoices.txt', icon: 'pi pi-fw pi-file', data: 'Invoices for this month' }]
+                }
+            ]
+        },
+        {
+            key: '1',
+            label: 'Events',
+            data: 'Events Folder',
+            icon: 'pi pi-fw pi-calendar',
+            children: [
+                { key: '1-0', label: 'Meeting', icon: 'pi pi-fw pi-calendar-plus', data: 'Meeting' },
+                { key: '1-1', label: 'Product Launch', icon: 'pi pi-fw pi-calendar-plus', data: 'Product Launch' },
+                { key: '1-2', label: 'Report Review', icon: 'pi pi-fw pi-calendar-plus', data: 'Report Review' }
+            ]
+        },
+        {
+            key: '2',
+            label: 'Movies',
+            data: 'Movies Folder',
+            icon: 'pi pi-fw pi-star',
+            children: [
+                { key: '2-0', icon: 'pi pi-fw pi-star', label: 'Al Pacino', data: 'Pacino Movies' },
+                { key: '2-1', icon: 'pi pi-fw pi-star', label: 'Robert De Niro', data: 'De Niro Movies' }
+            ]
+        }
+    ];
+
     constructor(private messageService: MessageService) { }
+
+    ngOnInit() {
+        // Tree data is already initialized above
+    }
 
     onUpload(event: any) {
         for (let file of event.files) {

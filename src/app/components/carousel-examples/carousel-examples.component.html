@@ -1,0 +1,179 @@
+<div class="carousel-examples-container">
+    <!-- Carousel Settings -->
+    <p-card header="Carousel Settings">
+        <div class="settings-grid">
+            <div class="setting-group">
+                <label>Autoplay Interval (ms):</label>
+                <p-slider [(ngModel)]="autoplayInterval" [min]="1000" [max]="10000" [step]="500"></p-slider>
+                <span class="setting-value">{{ autoplayInterval }}ms</span>
+            </div>
+
+            <div class="setting-group">
+                <label>Items Visible:</label>
+                <p-slider [(ngModel)]="numVisible" [min]="1" [max]="5" [step]="1"></p-slider>
+                <span class="setting-value">{{ numVisible }}</span>
+            </div>
+
+            <div class="setting-group">
+                <label>Items to Scroll:</label>
+                <p-slider [(ngModel)]="numScroll" [min]="1" [max]="3" [step]="1"></p-slider>
+                <span class="setting-value">{{ numScroll }}</span>
+            </div>
+
+            <div class="setting-group">
+                <label>Circular:</label>
+                <p-checkbox [(ngModel)]="circular"></p-checkbox>
+            </div>
+
+            <div class="setting-group">
+                <label>Show Indicators:</label>
+                <p-checkbox [(ngModel)]="showIndicators"></p-checkbox>
+            </div>
+
+            <div class="setting-group">
+                <label>Show Navigators:</label>
+                <p-checkbox [(ngModel)]="showNavigators"></p-checkbox>
+            </div>
+        </div>
+    </p-card>
+
+    <!-- Product Carousel -->
+    <p-card header="Product Showcase Carousel">
+        <p-carousel [value]="products" [numVisible]="numVisible" [numScroll]="numScroll" [circular]="circular"
+            [autoplayInterval]="autoplayInterval" [showIndicators]="showIndicators" [showNavigators]="showNavigators"
+            [responsiveOptions]="responsiveOptions">
+
+            <ng-template let-product pTemplate="item">
+                <div class="product-card" (click)="onProductSelect(product)">
+                    <div class="product-image">
+                        <img [src]="product.image" [alt]="product.name" (error)="onImageError($event)">
+                        <div class="product-overlay">
+                            <p-button icon="pi pi-eye" [text]="true" severity="info"></p-button>
+                        </div>
+                    </div>
+                    <div class="product-content">
+                        <h3>{{ product.name }}</h3>
+                        <p class="product-category">{{ product.category }}</p>
+                        <p class="product-description">{{ product.description }}</p>
+                        <div class="product-rating">
+                            <span class="stars">
+                                <i *ngFor="let star of getStars(product.rating)" class="pi pi-star-fill"></i>
+                                <i *ngFor="let star of getEmptyStars(product.rating)" class="pi pi-star"></i>
+                            </span>
+                            <span class="rating-value">{{ product.rating }}</span>
+                        </div>
+                        <div class="product-footer">
+                            <span class="price">${{ product.price }}</span>
+                            <p-button label="Add to Cart" size="small" severity="primary"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </p-card>
+
+    <!-- Testimonial Carousel -->
+    <p-card header="Customer Testimonials">
+        <p-carousel [value]="testimonials" [numVisible]="2" [numScroll]="1" [circular]="true" [autoplayInterval]="5000"
+            [showIndicators]="true" [showNavigators]="true" [responsiveOptions]="[
+        { breakpoint: '768px', numVisible: 1, numScroll: 1 },
+        { breakpoint: '560px', numVisible: 1, numScroll: 1 }
+      ]">
+
+            <ng-template let-testimonial pTemplate="item">
+                <div class="testimonial-card" (click)="onTestimonialSelect(testimonial)">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="pi pi-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">"{{ testimonial.content }}"</p>
+                        <div class="testimonial-rating">
+                            <span class="stars">
+                                <i *ngFor="let star of getStars(testimonial.rating)" class="pi pi-star-fill"></i>
+                                <i *ngFor="let star of getEmptyStars(testimonial.rating)" class="pi pi-star"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="testimonial-author">
+                        <img [src]="testimonial.avatar" [alt]="testimonial.name" class="author-avatar">
+                        <div class="author-info">
+                            <h4>{{ testimonial.name }}</h4>
+                            <p>{{ testimonial.role }}</p>
+                            <p class="company">{{ testimonial.company }}</p>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </p-card>
+
+    <!-- Image Gallery Carousel -->
+    <p-card header="Image Gallery">
+        <p-carousel [value]="galleryImages" [numVisible]="3" [numScroll]="1" [circular]="true" [autoplayInterval]="4000"
+            [showIndicators]="true" [showNavigators]="true" [responsiveOptions]="[
+        { breakpoint: '1024px', numVisible: 2, numScroll: 1 },
+        { breakpoint: '768px', numVisible: 1, numScroll: 1 }
+      ]">
+
+            <ng-template let-image pTemplate="item">
+                <div class="gallery-item" (click)="onImageSelect(image)">
+                    <img [src]="image.src" [alt]="image.alt" class="gallery-image">
+                    <div class="gallery-overlay">
+                        <i class="pi pi-search-plus"></i>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </p-card>
+
+    <!-- News/Blog Carousel -->
+    <p-card header="Latest News & Articles">
+        <p-carousel [value]="newsItems" [numVisible]="2" [numScroll]="1" [circular]="true" [autoplayInterval]="6000"
+            [showIndicators]="true" [showNavigators]="true" [responsiveOptions]="[
+        { breakpoint: '768px', numVisible: 1, numScroll: 1 }
+      ]">
+
+            <ng-template let-news pTemplate="item">
+                <div class="news-card" (click)="onNewsSelect(news)">
+                    <div class="news-image">
+                        <img [src]="news.image" [alt]="news.title">
+                        <div class="news-category">
+                            <p-tag [value]="news.category" severity="info"></p-tag>
+                        </div>
+                    </div>
+                    <div class="news-content">
+                        <h3>{{ news.title }}</h3>
+                        <p class="news-excerpt">{{ news.excerpt }}</p>
+                        <div class="news-meta">
+                            <span class="news-date">
+                                <i class="pi pi-calendar"></i>
+                                {{ news.date | date:'MMM dd, yyyy' }}
+                            </span>
+                            <p-button label="Read More" [text]="true" severity="primary" size="small"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </p-card>
+
+    <!-- Vertical Carousel Example -->
+    <p-card header="Vertical Carousel (News Ticker Style)">
+        <p-carousel [value]="newsItems" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000"
+            [showIndicators]="false" [showNavigators]="false" orientation="vertical" [verticalViewPortHeight]="'200px'">
+
+            <ng-template let-news pTemplate="item">
+                <div class="news-ticker-item">
+                    <div class="ticker-content">
+                        <h4>{{ news.title }}</h4>
+                        <p>{{ news.excerpt }}</p>
+                        <span class="ticker-date">{{ news.date | date:'short' }}</span>
+                    </div>
+                    <div class="ticker-category">
+                        <p-tag [value]="news.category" severity="secondary"></p-tag>
+                    </div>
+                </div>
+            </ng-template>
+        </p-carousel>
+    </p-card>
+</div>

@@ -62,6 +62,18 @@
           <i class="pi pi-arrows-alt"></i>
           Drag & Drop
         </a>
+        <a routerLink="/skeleton" [class.active]="isRouteActive('/skeleton')" class="nav-link">
+          <i class="pi pi-spin pi-spinner"></i>
+          Skeleton
+        </a>
+        <a routerLink="/inplace" [class.active]="isRouteActive('/inplace')" class="nav-link">
+          <i class="pi pi-pencil"></i>
+          Inplace
+        </a>
+        <a routerLink="/carousel" [class.active]="isRouteActive('/carousel')" class="nav-link">
+          <i class="pi pi-images"></i>
+          Carousel
+        </a>
       </nav>
 
     </div>
